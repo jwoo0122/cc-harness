@@ -154,6 +154,20 @@ The pi extension layer adds five enforcement powers; in Claude Code these map di
 
 If you need cross-session state persistence, the registry file already gives you the durable part — what's missing is per-increment progress within a session, which is fine to recompute.
 
+## Releases
+
+Versioning is automated via [semantic-release](https://semantic-release.gitbook.io/) on every push to `main`. Version is computed from [Conventional Commits](https://www.conventionalcommits.org/) since the last tag, then propagated to `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`.
+
+| Commit prefix | Effect |
+|---------------|--------|
+| `feat: …` | minor bump (0.x.0) |
+| `fix: …` | patch bump (0.0.x) |
+| `feat!: …` or footer `BREAKING CHANGE: …` | major bump (x.0.0) |
+| `chore: …`, `docs: …`, `refactor: …`, `test: …`, `ci: …` | no release |
+| any commit with `[skip ci]` | workflow skipped |
+
+The release workflow itself bumps version and creates the tag in a `chore(release): X.Y.Z [skip ci]` commit, which does not retrigger the workflow.
+
 ## License
 
 MIT — same as the upstream pi harness.

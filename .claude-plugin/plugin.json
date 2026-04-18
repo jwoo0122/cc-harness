@@ -1,0 +1,19 @@
+{
+  "name": "cc-harness",
+  "version": "0.1.0",
+  "description": "Two-mode cognitive harness for Claude Code: divergent /explore (3-persona debate with mandatory ask-back) and convergent /execute (3-role mutual verification with cumulative verification registry). Eliminates self-affirmation bias through structural role separation.",
+  "author": {
+    "name": "Jinwoo Jeong"
+  },
+  "homepage": "https://github.com/jwoo0122/cc-harness",
+  "repository": "https://github.com/jwoo0122/cc-harness",
+  "license": "MIT",
+  "keywords": [
+    "agent-skills",
+    "cognitive-harness",
+    "debate",
+    "verification",
+    "thinking-mode",
+    "subagents"
+  ]
+}

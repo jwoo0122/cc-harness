@@ -8,7 +8,7 @@
       "name": "cc-harness",
       "source": "./",
       "description": "Two-mode cognitive harness: divergent /explore (3-persona debate) and convergent /execute (3-role mutual verification).",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "homepage": "https://github.com/jwoo0122/cc-harness",
       "repository": "https://github.com/jwoo0122/cc-harness",
       "license": "MIT",

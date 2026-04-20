@@ -167,6 +167,180 @@
       "registeredAt": "INC-4a",
       "lastVerifiedAt": "INC-4a",
       "lastResult": "pass"
+    },
+    "AC-3.1": {
+      "requirement": "/execute Phase 0a가 이터레이션 디렉터리 선택, 이름 검증(canonical regex), 0/1/N candidate 분기, hard-error abort 을 수행",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-3.1/happy.sh && bash .harness/verifications/ac-3.1/edge.sh && bash .harness/verifications/ac-3.1/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-3.1/happy.sh",
+          ".harness/verifications/ac-3.1/edge.sh",
+          ".harness/verifications/ac-3.1/adversarial.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "Phase 0a iteration selection: glob enumeration, canonical regex, single/multi/zero candidate branches, hard-error abort, Python regex oracle cross-check"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-3.2": {
+      "requirement": "/execute Phase 0가 brief 로드, rabbit-holes 언급; agents/pln.md rabbit-hole 규칙 섹션, PLN-rabbit-hole constraint 결합",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-3.2/happy.sh && bash .harness/verifications/ac-3.2/edge.sh",
+        "files": [
+          ".harness/verifications/ac-3.2/happy.sh",
+          ".harness/verifications/ac-3.2/edge.sh",
+          "skills/execute/SKILL.md",
+          "agents/pln.md"
+        ],
+        "description": "brief rabbit-holes flow into PLN as constraints"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-3.3a": {
+      "requirement": "/execute Phase 0가 <brief>...</brief> 래핑 + data-not-instructions directive + 모든 dispatch에 적용; skill 자체에 unguarded injection-seed 부재",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-3.3a/happy.sh && bash .harness/verifications/ac-3.3a/edge.sh && bash .harness/verifications/ac-3.3a/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-3.3a/happy.sh",
+          ".harness/verifications/ac-3.3a/edge.sh",
+          ".harness/verifications/ac-3.3a/adversarial.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "<brief> wrapping + data-not-instructions + universal scope + meta-guard for injection-seed phrases"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-3.4": {
+      "requirement": "/execute Phase 0가 HARNESS_DISABLE_BRIEF 이스케이프 해치 문서화 + skip branch + log line + rationale",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-3.4/happy.sh && bash .harness/verifications/ac-3.4/edge.sh",
+        "files": [
+          ".harness/verifications/ac-3.4/happy.sh",
+          ".harness/verifications/ac-3.4/edge.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "HARNESS_DISABLE_BRIEF escape hatch with legacy-fallback rationale"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-5.1a": {
+      "requirement": "/execute Phase 3 3c subsection: AskUserQuestion + 정확히 3선택지 (a)/(b)/(c) + HARNESS_DISABLE_CHECKPOINT",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-5.1a/happy.sh && bash .harness/verifications/ac-5.1a/edge.sh",
+        "files": [
+          ".harness/verifications/ac-5.1a/happy.sh",
+          ".harness/verifications/ac-5.1a/edge.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "Phase 3c checkpoint shape: 3 options, each ≥6 words, HARNESS_DISABLE_CHECKPOINT"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-5.1b": {
+      "requirement": "3c (a) 선택 시 ≥1 sentence freetext + .iteration-<N+1>/decision-log.md append + empty/Y-N 거부 + rubber-stamp rationale",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-5.1b/happy.sh && bash .harness/verifications/ac-5.1b/edge.sh",
+        "files": [
+          ".harness/verifications/ac-5.1b/happy.sh",
+          ".harness/verifications/ac-5.1b/edge.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "Freetext requirement + decision-log append + rejection of empty/Y-N"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-5.2": {
+      "requirement": "Freetext가 .iteration-<N+1>/decision-log.md에 append되고 다음 /explore session이 inherit; Phase 3 report appendix에 기록",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-5.2/happy.sh && bash .harness/verifications/ac-5.2/edge.sh",
+        "files": [
+          ".harness/verifications/ac-5.2/happy.sh",
+          ".harness/verifications/ac-5.2/edge.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "Freetext persistence across iteration boundary + /explore inheritance + report appendix capture"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-5.3": {
+      "requirement": "/execute Phase 3 HARNESS_DISABLE_CHECKPOINT 이스케이프 해치 + CI/automation rationale",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-5.3/happy.sh && bash .harness/verifications/ac-5.3/edge.sh",
+        "files": [
+          ".harness/verifications/ac-5.3/happy.sh",
+          ".harness/verifications/ac-5.3/edge.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "HARNESS_DISABLE_CHECKPOINT escape hatch with CI/automation rationale"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-C.1": {
+      "requirement": "_shared/lib.sh의 md_section이 fence-aware: ``` 또는 ~~~ 코드블럭 내부의 ## 라인을 섹션 종결자로 취급하지 않음",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-C.1/happy.sh && bash .harness/verifications/ac-C.1/edge.sh",
+        "files": [
+          ".harness/verifications/ac-C.1/happy.sh",
+          ".harness/verifications/ac-C.1/edge.sh",
+          ".harness/verifications/_shared/lib.sh"
+        ],
+        "description": "md_section helper fence-aware (backtick + tilde + info-string variants)"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-C.2": {
+      "requirement": "_shared/lib.sh의 grep_forbidden_phrase가 declaration-context 키워드(must not/do not/forbidden/금지/never/shall not/등)로 guarded match suppress; EC=1 on unguarded, EC=0 on all-guarded",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-C.2/happy.sh && bash .harness/verifications/ac-C.2/edge.sh && bash .harness/verifications/ac-C.2/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-C.2/happy.sh",
+          ".harness/verifications/ac-C.2/edge.sh",
+          ".harness/verifications/ac-C.2/adversarial.sh",
+          ".harness/verifications/_shared/lib.sh"
+        ],
+        "description": "grep_forbidden_phrase declaration-aware with known line-wide limitation locked by adversarial test"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
     }
   }
 }

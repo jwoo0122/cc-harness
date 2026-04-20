@@ -36,19 +36,37 @@ You orchestrate. You never role-play these. Every code change goes through `Agen
 ## Separation of Concerns (iron law)
 
 ```
-  📋 PLN ──── defines scope ────► 🔨 IMP ──── code ────► ✅ VER
-    ▲                                ▲                       │
-    │         challenges             │       challenges      │
-    ◄────────────────────────────────┤◄──────────────────────┘
-    │                                │                       ▲
-    │         challenges             │       challenges      │
-    └────────────────────────────────►───────────────────────►┘
+  📋 PLN ── scope ──► ✅ VER ── authors harness ──► 🔨 IMP (materializes .harness/) ──► 🔨 IMP (impl) ──► ✅ VER (runs harness)
+    ▲                   │                                                                                      │
+    └─── challenges ────┴──────────────────── challenges ───────────────────────────────────────────────────────┘
 
   No role marks its own output as correct.
-  VER never writes code. IMP never says "AC passed". PLN never runs tests.
+  VER designs tests BEFORE implementation. IMP writes files but never authors adversarial intent.
+  IMP never says "AC passed". PLN never runs tests.
 ```
 
 ---
+
+## The `.harness/` Directory — Reusable Verification Corpus
+
+Execute mode materializes its verification knowledge under `.harness/`. This is a **committed, reusable** artifact tree — the project's permanent adversarial test bed. VER owns its design; IMP writes the files; every future iteration inherits and grows it.
+
+```
+.harness/
+├── verification-registry.json       # index of ACs → verification entries
+└── verifications/                   # reusable test/script corpus (authored by VER, materialized by IMP)
+    ├── ac-1.1/
+    │   ├── happy.test.ts            # golden path
+    │   ├── edge.test.ts             # edge cases
+    │   ├── adversarial.test.ts      # malicious / out-of-spec inputs
+    │   ├── property.test.ts         # property-based (fast-check, hypothesis, proptest, ...)
+    │   ├── stress.sh                # load / concurrency script
+    │   └── README.md                # what this AC-bundle proves, how to run it
+    └── ac-2.1/
+        └── ...
+```
+
+The naming convention is `ac-<id>/<kind>.<ext>` — one directory per AC, multiple verification artifacts per AC. Each script is independently executable and registered in the registry so regression scans can re-run every angle, not just one.
 
 ## Cumulative Verification Registry
 
@@ -125,6 +143,98 @@ Format:
 
 If IMP or VER raises issues → re-dispatch PLN with the concerns. Loop until both approve.
 
+### Phase 1.5 — Verification Authoring (VER designs, IMP materializes)
+
+**This phase runs BEFORE any production code is written.** VER takes PLN's approved plan, internalizes the goal of each increment, and designs the most **extreme and adversarial** verification corpus possible. The output is committed to `.harness/verifications/` as reusable scripts.
+
+The point: when IMP later writes production code, the tests already exist and are maximally hostile. "Passing" means surviving a pre-built gauntlet, not a post-hoc checklist.
+
+#### 1.5a. VER designs the verification corpus
+
+**Dispatch VER** with the approved plan + criteria:
+
+```
+For every AC covered by this plan, design the most aggressive, extreme, and
+adversarial verification corpus you can. Do not be conservative. Assume IMP
+will write the minimum code to pass tests — your job is to make "minimum" very hard.
+
+For each AC, produce AT LEAST:
+  - happy.*      — golden path
+  - edge.*       — boundary values, empty/huge/unicode/null, off-by-one
+  - adversarial.* — malicious or out-of-spec input, concurrency races, partial failures,
+                   injection, traversal, overflow, starvation
+  - property.*   — property-based tests (fast-check, proptest, hypothesis) where feasible
+  - stress.*     — load / throughput / memory / long-running, where applicable
+
+Output a structured spec — one file per verification artifact:
+
+  path: .harness/verifications/ac-<id>/<kind>.<ext>
+  language: <ts|py|rs|sh|...>
+  runner:   <the exact command that executes this file in isolation>
+  intent:   <one line — what this proves>
+  content:  |
+    <full file body, ready to write verbatim>
+
+Also output a .harness/verifications/ac-<id>/README.md summarizing the bundle.
+
+Constraints:
+- Files must be independently executable (one command per file).
+- No production code. If a helper/fixture is needed, put it under .harness/verifications/_shared/.
+- Prefer real fixtures over mocks. If mocking is unavoidable, justify it in intent:.
+- "manual-check" is forbidden at this stage. If no automation is possible, say so and PLN will escalate.
+```
+
+#### 1.5b. PLN audits the corpus
+
+**Dispatch PLN** with VER's spec:
+
+```
+Cross-check VER's verification spec against the criteria text.
+- Is every AC covered by ≥ happy + edge + adversarial?
+- Are any tests testing the wrong thing, or asserting something weaker than the AC demands?
+- Are any tests impossible for IMP to pass without breaking another AC (over-constrained)?
+
+Output: accept | re-dispatch VER with named gaps.
+```
+
+Loop until PLN accepts.
+
+#### 1.5c. IMP materializes the corpus
+
+For each file in VER's accepted spec, **dispatch IMP** with a write-only scope:
+
+```
+Materialize the following verification artifact verbatim. Touch ONLY this path.
+Do not edit, improve, or second-guess the content — VER is the author.
+
+  path:    <.harness/verifications/ac-<id>/<kind>.<ext>>
+  content: <verbatim body>
+
+After writing, run: <runner command>
+Report: file written, and the test result (expected: FAIL, since no production code exists yet).
+```
+
+At this stage **every test is expected to fail or error** — that is correct. A passing test before implementation is a bug in the test (false positive). Report these to PLN.
+
+#### 1.5d. VER sanity-checks the corpus
+
+**Dispatch VER**:
+
+```
+Confirm every file listed in your spec exists on disk under .harness/verifications/.
+Run each runner command. Report:
+  - File present: Y/N
+  - Runs (not a syntax error / import failure): Y/N
+  - Result: expected-fail | unexpected-pass | infrastructure-error
+
+Any unexpected-pass is a false positive — flag it for PLN.
+Any infrastructure-error (missing dep, can't import) must be fixed before Phase 2.
+```
+
+Infrastructure errors → dispatch IMP to fix the specific harness file only. Loop.
+
+Once VER confirms the corpus is present, runnable, and correctly failing, each artifact is eligible to be registered (Phase 2d) once the production code that makes it pass lands.
+
 ### Phase 2 — Execute Cycle (repeat per increment)
 
 #### 2a. IMP implements
@@ -155,14 +265,27 @@ Verdict: ALL PASS / BLOCKED on Gate N
 
 Gate fail → re-dispatch IMP with VER's exact error. Loop.
 
-#### 2c. VER runs verification
+#### 2c. VER runs the pre-authored harness
 
-**Dispatch VER** based on what changed:
-- Unit-level changes → run the test suite
-- UI/renderer changes → invoke project-specific verification skills if available
-- API changes → integration tests
+**Dispatch VER**:
 
-VER must produce a **registrable verification** for each AC: a specific, reproducible command. "I eyeballed it" is not registrable.
+```
+Run every verification artifact under .harness/verifications/ac-<id>/ for each AC
+that INC-[N] is meant to enable. Report per-file:
+
+| AC | File | Runner | Result (pass/fail) | Output excerpt |
+
+Also run any project-native tests whose scope overlaps.
+
+For each AC:
+  - If ALL artifacts pass → AC is a candidate for ✅ PASS in 2d.
+  - If ANY artifact fails → AC stays ⏳ or goes ❌ FAIL with the failing file named.
+
+Do NOT edit the harness to make it pass. If the harness is wrong, raise it to PLN — never
+silently soften a test. This is the whole point of authoring before implementation.
+```
+
+The registrable verification for each AC is the set of `.harness/verifications/ac-<id>/*` files — each with its own runner command. "I eyeballed it" is not registrable, and "the general test suite passes" is not AC-specific.
 
 #### 2d. VER checks ACs
 
@@ -170,7 +293,11 @@ VER must produce a **registrable verification** for each AC: a specific, reprodu
 
 ```
 For each AC in scope of INC-[N], output:
-| AC     | Status  | Evidence (specific proof) | Registrable verification (strategy + command + files + description) |
+| AC     | Status  | Evidence (specific proof) | Registrable verification (list of .harness/verifications/ac-<id>/* files + runner commands + description) |
+
+The registrable verification MUST reference the pre-authored harness under .harness/verifications/.
+If an AC has no such bundle, that is a Phase 1.5 gap — escalate to PLN; do not invent a fresh
+verification on the spot.
 ```
 
 **Dispatch PLN** (cross-check):
@@ -276,6 +403,10 @@ Loop until VER signs off.
 - ❌ VER passing an AC without registering a verification method.
 - ❌ Running regression checks without consulting `.harness/verification-registry.json`.
 - ❌ Registering "manual-check" when an automated verification is feasible.
+- ❌ Writing production code before Phase 1.5's verification corpus is materialized and confirmed failing.
+- ❌ VER softening, skipping, or rewriting a `.harness/verifications/` file to make an increment pass. Tests are adversarial by design — if they're wrong, raise to PLN.
+- ❌ A `.harness/verifications/ac-<id>/` bundle that covers only the happy path. Adversarial + edge are mandatory when feasible.
+- ❌ IMP modifying `.harness/verifications/` during an implementation dispatch. That directory is only touched during Phase 1.5 (or an explicit PLN-approved harness revision).
 
 ## Transition Rules
 

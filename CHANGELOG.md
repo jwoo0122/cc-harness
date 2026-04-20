@@ -1,3 +1,10 @@
+# [0.3.0](https://github.com/jwoo0122/cc-harness/compare/v0.2.0...v0.3.0) (2026-04-20)
+
+
+### Features
+
+* add EMP (Empiricist) as 4th explore persona ([c743bc2](https://github.com/jwoo0122/cc-harness/commit/c743bc2c43be7dacae0d7ca0751334ca392414d2))
+
 # [0.2.0](https://github.com/jwoo0122/cc-harness/compare/v0.1.1...v0.2.0) (2026-04-20)
 
 

@@ -399,9 +399,9 @@ Iron rules:
 - Commit messages always start with the increment ID.
 - Push only on explicit user instruction.
 
-## Phase 3
+## Phase 3 — Completion Report
 
-**Phase 3 — Completion Report (PLN writes, VER audits).**
+**PLN writes the report; VER audits; orchestrator runs the user-gated iteration checkpoint before exiting.**
 
 **Dispatch PLN**: "Write an execution report. Template below. Use IMP to write it to `target/execute/<name>-<YYYYMMDD-HHMMSS>.md`."
 
@@ -442,7 +442,7 @@ After VER signs off the execution report, the orchestrator invokes a user-gated 
 - **(b) Fix-forward in current iteration** — verification revealed implementation issues but the spec is sound; want another `/execute` cycle on the same criteria.
 - **(c) Accept and exit** — all ACs passed, no further iteration needed.
 
-If the user picks **(a)**, prompt them for **at least one sentence** describing "what must change in the next iteration." This text (the user's typed rationale) is appended to `.iteration-<N+1>/decision-log.md` so the next `/explore` session inherits the reason for re-entering the loop. Do not accept a Y/N or empty reply — the freetext entry is the whole point of the gate (prevents rubber-stamping of iteration boundaries).
+If the user picks **(a)**, prompt them for **at least one sentence** describing "what must change in the next iteration." This text (the user's typed rationale) is appended to `.iteration-<N+1>/decision-log.md` so the next `/explore` session inherits the reason for re-entering the loop. Do not accept a Y/N or empty reply — the freetext entry is the whole point of the gate (prevents rubber-stamping per SKP's "gate fatigue" concern from the explore session).
 
 If the user picks **(b)** or **(c)**, no freetext is required; the skill records the choice in the report and exits.
 

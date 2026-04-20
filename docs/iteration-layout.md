@@ -1,5 +1,7 @@
 # Iteration Layout
 
+> **Note for plugin users**: You do not need to read or copy this document into your project. The `/cc-harness:explore` and `/cc-harness:execute` skills are **self-contained** — they include the iteration directory convention, canonical regex, brief template, and atomic-write protocol inline. This file exists as internal documentation for the cc-harness plugin's own development and regression harness. End-user setup is documented directly in the skill prompts (`skills/explore/SKILL.md` Phase 5 "First-time setup" and `skills/execute/SKILL.md` Phase 0 "First-time setup").
+
 `/explore` → `/execute` 닫힌 루프에서 이터레이션별 산출물이 저장되는 디렉터리 규약.
 
 ## Directory name

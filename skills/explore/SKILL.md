@@ -228,6 +228,11 @@ Dispatch sequentially:
 
 **Phase 5 — Output handoff to `.iteration-<N>/brief.md`.**
 
+> **First-time setup in your project** (do this once before your first `/explore` run):
+> 1. Add `.iteration-*/` to your project's `.gitignore`. This keeps `brief.md`, `verify-report.md`, and `decision-log.md` artifacts out of your commit stream by default.
+> 2. If you want to opt-in and commit a specific artifact (for example a final `verify-report.md`), add a negate line like `!.iteration-*/verify-report.md` to `.gitignore`, or use `git add -f <path>` per file.
+> 3. Briefs can contain verbatim user prompts and debug output. Before committing any `.iteration-<N>/*` file opt-in, run a pre-commit secret scan (for example `gitleaks protect --staged`) to catch accidental credential leaks.
+
 The synthesis document is saved to `.iteration-<N>/brief.md`, where `<N>` is the iteration number.
 
 **Before writing, validate the iteration directory name.** The directory must match the canonical regex:

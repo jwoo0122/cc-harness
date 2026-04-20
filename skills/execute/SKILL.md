@@ -123,6 +123,8 @@ During regression checks (Phase 2e), VER reads the registry and re-runs every en
 
 Pre-flight (VER leads, PLN reviews).
 
+> **First-time setup in your project**: `/execute` expects `.iteration-*/` directories in your project root (created by `/explore` Phase 5 or manually). Add `.iteration-*/` to your project's `.gitignore` before the first run so `brief.md` / `verify-report.md` / `decision-log.md` do not pollute your commit stream. Opt-in tracking for specific artifacts: use `!.iteration-*/<file>` negation or `git add -f`. Run a pre-commit secret scan (e.g. `gitleaks protect --staged`) before committing any iteration artifact.
+
 #### 0a. Iteration selection & name validation (orchestrator, before any dispatch)
 
 Before dispatching anything, the orchestrator establishes which `.iteration-<N>/` directory this execute session targets.

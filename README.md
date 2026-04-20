@@ -8,14 +8,14 @@ This is the Claude Code port of [`@jwoo0122/harness`](https://github.com/jwoo012
 
 | Mode | Skill | Personas / Roles | Purpose |
 |------|-------|------------------|---------|
-| **Diverge** | `/explore` | 🔴 OPT · 🟡 PRA · 🟢 SKP | 3-persona debate to push boundaries and find options |
+| **Diverge** | `/explore` | 🔴 OPT · 🟡 PRA · 🟢 SKP · 🔵 EMP | 4-persona debate to push boundaries and find options |
 | **Converge** | `/execute` | 📋 PLN · 🔨 IMP · ✅ VER | 3-role mutual verification to ship correct code |
 
 ### Why role separation?
 
 Single-agent loops suffer from **self-affirmation bias** — the same context that writes code also evaluates whether the code is correct. The harness forces structured separation:
 
-- **Explore**: three emotional lenses run as **isolated subagents** (separate context windows, read-only tools). No unanimous Round-1 agreement allowed. Unsupported claims are struck.
+- **Explore**: four emotional lenses run as **isolated subagents** (separate context windows, read-only tools). No unanimous Round-1 agreement allowed. Unsupported claims are struck.
 - **Execute**: three professional roles run as isolated subagents with **role-restricted tools**. The Implementer cannot mark its own ACs as passed — only the Verifier can. The Verifier cannot write code. The Planner cannot run tests.
 
 Enforcement is **structural**, not stylistic — `PreToolUse` hooks block the wrong role from using the wrong tool, including subagent calls. You can't accidentally bypass it by "just trying" — the hook will exit 2.
@@ -39,6 +39,7 @@ cc-harness/
     ├── opt.md   # 🔴 Optimist (read-only)
     ├── pra.md   # 🟡 Pragmatist (read-only)
     ├── skp.md   # 🟢 Skeptic (read-only)
+    ├── emp.md   # 🔵 Empiricist (read-only)
     ├── pln.md   # 📋 Planner (read-only)
     ├── imp.md   # 🔨 Implementer (Read+Edit+Write+Glob+Grep+Bash)
     └── ver.md   # ✅ Verifier (Read+Glob+Grep+Bash — no Edit)

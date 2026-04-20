@@ -1,0 +1,67 @@
+{
+  "$schema": "harness-verification-registry-v1",
+  "entries": {
+    "AC-1.1": {
+      "requirement": "docs/iteration-layout.md이 세 필수 파일(brief.md, verify-report.md, decision-log.md)과 canonical 디렉터리 정규식을 문서화한다",
+      "source": ".iteration-1-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-1.1/happy.sh && bash .harness/verifications/ac-1.1/edge.sh",
+        "files": [
+          ".harness/verifications/ac-1.1/happy.sh",
+          ".harness/verifications/ac-1.1/edge.sh"
+        ],
+        "description": "docs/iteration-layout.md documents three required filenames and canonical regex; no legacy sink or alt-filename bullets"
+      },
+      "registeredAt": "INC-1",
+      "lastVerifiedAt": "INC-1",
+      "lastResult": "pass"
+    },
+    "AC-1.2-docs": {
+      "requirement": "canonical iteration-dir regex 리터럴이 docs/iteration-layout.md에 기록됨 (docs 측면; skill 측 강제는 INC-2/INC-4a에서 추가)",
+      "source": ".iteration-1-criteria.md",
+      "verification": {
+        "strategy": "lint-rule",
+        "command": "grep -Fq '^\\.iteration-[1-9][0-9]*$' docs/iteration-layout.md",
+        "files": ["docs/iteration-layout.md"],
+        "description": "canonical iteration-dir regex literal recorded in spec doc (docs-side only; skill-side enforcement pending)"
+      },
+      "registeredAt": "INC-1",
+      "lastVerifiedAt": "INC-1",
+      "lastResult": "pass"
+    },
+    "AC-1.3": {
+      "requirement": ".iteration-*/가 기본값으로 .gitignore에 포함되고 옵트인 트래킹 절차가 문서화됨",
+      "source": ".iteration-1-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-1.3/happy.sh && bash .harness/verifications/ac-1.3/edge.sh",
+        "files": [
+          ".harness/verifications/ac-1.3/happy.sh",
+          ".harness/verifications/ac-1.3/edge.sh",
+          ".gitignore"
+        ],
+        "description": ".iteration-*/ globally ignored by default; opt-in tracking procedure documented in layout doc"
+      },
+      "registeredAt": "INC-1",
+      "lastVerifiedAt": "INC-1",
+      "lastResult": "pass"
+    },
+    "AC-1.4": {
+      "requirement": "시크릿 스캔 가이던스가 문서에 명시됨 (도구 이름 + pre-commit 타이밍)",
+      "source": ".iteration-1-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-1.4/happy.sh",
+        "files": [
+          ".harness/verifications/ac-1.4/happy.sh",
+          "docs/iteration-layout.md"
+        ],
+        "description": "secret-scan tool named and pre-commit timing recommended in layout doc"
+      },
+      "registeredAt": "INC-1",
+      "lastVerifiedAt": "INC-1",
+      "lastResult": "pass"
+    }
+  }
+}

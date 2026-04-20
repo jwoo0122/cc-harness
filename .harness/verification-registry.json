@@ -151,6 +151,22 @@
       "registeredAt": "INC-3",
       "lastVerifiedAt": "INC-3",
       "lastResult": "pass"
+    },
+    "AC-1.2-execute": {
+      "requirement": "/execute Phase 0 진입 시 이터레이션 디렉터리 이름이 canonical 정규식 위반하면 hard-error abort (silent skip / auto-correct / warn-and-continue 금지)",
+      "source": ".iteration-1-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-1.2-execute/happy.sh",
+        "files": [
+          ".harness/verifications/ac-1.2-execute/happy.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "execute SKILL Phase 0 enforces canonical regex ^\\.iteration-[1-9][0-9]*$ with hard-error abort on violation"
+      },
+      "registeredAt": "INC-4a",
+      "lastVerifiedAt": "INC-4a",
+      "lastResult": "pass"
     }
   }
 }

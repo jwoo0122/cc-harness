@@ -119,7 +119,33 @@ During regression checks (Phase 2e), VER reads the registry and re-runs every en
 
 ## Procedure
 
-### Phase 0 — Pre-flight (VER leads, PLN reviews)
+## Phase 0
+
+Pre-flight (VER leads, PLN reviews).
+
+#### 0a. Iteration selection & name validation (orchestrator, before any dispatch)
+
+Before dispatching anything, the orchestrator establishes which `.iteration-<N>/` directory this execute session targets.
+
+1. **Enumerate candidates**: glob `.iteration-*/` at the repo root. Record the list.
+2. **Validate each candidate name**: every directory name MUST match the canonical regex:
+
+```
+^\.iteration-[1-9][0-9]*$
+```
+
+If any existing directory violates the regex, **abort with a hard error**. No silent fallthrough. No auto-correction. No warn-then-proceed. The user must either rename or delete the invalid directory before `/execute` proceeds.
+
+3. **Select the active iteration**:
+   - If exactly one valid candidate: that is the active iteration.
+   - If multiple valid candidates: call `AskUserQuestion` listing the candidates so the user picks. The picked directory is the active iteration.
+   - If zero candidates: abort with a hard error telling the user to run `/explore` first (which writes `.iteration-<N>/brief.md`), or to create `.iteration-1/` manually if resuming an offline draft.
+
+4. **Record the active iteration number** as `<N>` for the remainder of this session. All subsequent dispatches (Phase 0b onward) reference `.iteration-<N>/`.
+
+Only after 0a completes successfully does the orchestrator proceed to 0b (VER baseline, PLN review).
+
+#### 0b. Baseline check and planning readiness
 
 **Dispatch VER**: "Run baseline checks for this project. Detect the toolchain from manifests. Run formatter check, linter, test suite, full build. Report each as pass/fail with counts. Then `Read` `.harness/verification-registry.json` if it exists and re-run every registered command. Output a structured baseline report."
 

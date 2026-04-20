@@ -68,6 +68,8 @@ Execute mode materializes its verification knowledge under `.harness/`. This is 
 
 The naming convention is `ac-<id>/<kind>.<ext>` — one directory per AC, multiple verification artifacts per AC. Each script is independently executable and registered in the registry so regression scans can re-run every angle, not just one.
 
+IMP follows the atomic write protocol defined in `agents/imp.md` when materializing iteration artifacts (`.iteration-<N>/brief.md`, `verify-report.md`, `decision-log.md`): write to `<target>.tmp`, then atomic rename. This guarantees readers never observe a half-written file if IMP is interrupted mid-write.
+
 ## Cumulative Verification Registry
 
 Execute mode maintains a **Verification Registry** at `.harness/verification-registry.json` — a persistent catalog recording HOW each acceptance criterion is verified. Committed alongside production code; quality floor only rises.

@@ -391,7 +391,9 @@ Iron rules:
 - Commit messages always start with the increment ID.
 - Push only on explicit user instruction.
 
-### Phase 3 — Completion Report (PLN writes, VER audits)
+## Phase 3
+
+**Phase 3 — Completion Report (PLN writes, VER audits).**
 
 **Dispatch PLN**: "Write an execution report. Template below. Use IMP to write it to `target/execute/<name>-<YYYYMMDD-HHMMSS>.md`."
 
@@ -419,6 +421,24 @@ Output: signoff or list of corrections.
 ```
 
 Loop until VER signs off.
+
+### 3c. Iteration checkpoint — user gate
+
+After VER signs off the execution report, the orchestrator invokes a user-gated checkpoint before exiting the skill. This closes the explore↔execute loop: verification results flow back to the user, who decides what happens next.
+
+**Escape hatch**: if `HARNESS_DISABLE_CHECKPOINT=1` is set, skip the checkpoint entirely — the skill exits after Phase 3b signoff. For CI / automation contexts where user interaction is impossible.
+
+**Default behavior**: call `AskUserQuestion` with exactly three options:
+
+- **(a) Enter next iteration via `/explore`** — verification revealed a spec gap or new strategic question; want to iterate on the bet itself.
+- **(b) Fix-forward in current iteration** — verification revealed implementation issues but the spec is sound; want another `/execute` cycle on the same criteria.
+- **(c) Accept and exit** — all ACs passed, no further iteration needed.
+
+If the user picks **(a)**, prompt them for **at least one sentence** describing "what must change in the next iteration." This text (the user's typed rationale) is appended to `.iteration-<N+1>/decision-log.md` so the next `/explore` session inherits the reason for re-entering the loop. Do not accept a Y/N or empty reply — the freetext entry is the whole point of the gate (prevents rubber-stamping of iteration boundaries).
+
+If the user picks **(b)** or **(c)**, no freetext is required; the skill records the choice in the report and exits.
+
+In all cases, log the chosen option and (if (a)) the freetext to the Phase 3 report appendix.
 
 ---
 

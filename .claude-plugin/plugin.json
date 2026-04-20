@@ -1,6 +1,6 @@
 {
   "name": "cc-harness",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Two-mode cognitive harness for Claude Code: divergent /explore (3-persona debate with mandatory ask-back) and convergent /execute (3-role mutual verification with cumulative verification registry). Eliminates self-affirmation bias through structural role separation.",
   "author": {
     "name": "Jinwoo Jeong"

@@ -226,7 +226,7 @@ The synthesis document is saved to `.iteration-<N>/brief.md`, where `<N>` is the
 ^\.iteration-[1-9][0-9]*$
 ```
 
-If the target directory name violates this regex, **abort with a hard error**. No silent fallthrough. No auto-correction. No warn-then-proceed. The user must fix the name explicitly. 침묵 스킵 금지. 자동 교정 금지.
+If the target directory name violates this regex, **abort with a hard error**. Do not silently skip. Do not auto-correct. Do not warn and continue. The user must fix the name explicitly. 침묵 스킵 금지. 자동 교정 금지.
 
 **Write path**: `.iteration-<N>/brief.md` (e.g., `.iteration-1/brief.md`). Any legacy per-topic dated path is **no longer used**; do not reintroduce it.
 
@@ -239,17 +239,17 @@ Because `Write` is blocked under this skill, use one of:
 The `brief.md` document MUST contain exactly the following four top-level sections, in this order:
 
 ```markdown
-  ## Bet
-  [the strategic bet — what we think is worth doing and why]
+## Bet
+[the strategic bet — what we think is worth doing and why]
 
-  ## Appetite
-  [how much time/effort we're willing to spend before stopping]
+## Appetite
+[how much time/effort we're willing to spend before stopping]
 
-  ## Boundaries / Non-goals
-  [what we are explicitly NOT doing in this iteration]
+## Boundaries / Non-goals
+[what we are explicitly NOT doing in this iteration]
 
-  ## Risk-flagged rabbit-holes
-  [zones VER should probe hard — flagged for Phase 1.5 adversarial authoring]
+## Risk-flagged rabbit-holes
+[zones VER should probe hard — flagged for Phase 1.5 adversarial authoring]
 ```
 
 #### Forbidden sections (MUST NOT contain)
@@ -272,19 +272,19 @@ These belong in `/execute` (PLN's increment plan), not in the brief. If the brie
 The skill-level document printed at Phase 5 end follows this template (now targeting `.iteration-<N>/brief.md` instead of the legacy path):
 
 ```markdown
-  # Exploration brief — iteration <N>
+# Exploration brief — iteration <N>
 
-  ## Bet
-  ...
+## Bet
+...
 
-  ## Appetite
-  ...
+## Appetite
+...
 
-  ## Boundaries / Non-goals
-  ...
+## Boundaries / Non-goals
+...
 
-  ## Risk-flagged rabbit-holes
-  ...
+## Risk-flagged rabbit-holes
+...
 ```
 
 End of Phase 5.

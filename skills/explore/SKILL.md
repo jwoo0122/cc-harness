@@ -119,7 +119,9 @@ Ask before writing the tension as "unresolved". Use `AskUserQuestion` with the t
 
 ## Procedure
 
-### Phase 0 — Topic clarification (mandatory if Trigger 1 fires)
+## Phase 0
+
+**Phase 0 — Topic clarification (mandatory if Trigger 1 fires).**
 
 Inspect `$ARGUMENTS`:
 - If empty or generic (one word, no scope): **Trigger 1 fires** — ask the user to choose a framing or supply scope before any other work.
@@ -127,7 +129,9 @@ Inspect `$ARGUMENTS`:
 
 Even when Trigger 1 doesn't fire, **briefly state your interpretation** of the topic in one sentence at the start of Phase 1 ("I'm interpreting `$ARGUMENTS` as: …"). If the user objects, re-frame before continuing.
 
-### Phase 1 — Context snapshot (you, read-only)
+## Phase 1
+
+**Phase 1 — Context snapshot (you, read-only).**
 
 Establish the factual base all four personas will share. Use `Read`, `Glob`, `Grep`:
 
@@ -141,7 +145,9 @@ Record a **3-sentence project status summary**. Persist it — every persona dis
 
 **Trigger 2 check (mandatory):** while reading, watch for contradictions or missing load-bearing context. If `CLAUDE.md` and the latest criteria disagree, or you cannot identify the active iteration, or a decision the topic depends on is logged as TBD — **stop and ask the user via `AskUserQuestion`** before moving to Phase 2. Surface the conflict verbatim in the question's options.
 
-### Phase 2 — Horizon scan (you, read-only + web)
+## Phase 2
+
+**Phase 2 — Horizon scan (you, read-only + web).**
 
 Cast a wide net before the debate. No persona work yet.
 
@@ -151,7 +157,9 @@ Cast a wide net before the debate. No persona work yet.
 4. **This codebase** — existing stubs, extension points, tech debt.
 5. **Wild field** — cross-domain analogies (game engines, compilers, databases, biology — anything).
 
-### Phase 3 — The Debate (subagent dispatch)
+## Phase 3
+
+**Phase 3 — The Debate (subagent dispatch).**
 
 For each significant decision point, run **3 rounds**.
 
@@ -205,7 +213,9 @@ Synthesis format:
 - Confidence: [high/medium/low — low if personas still fundamentally disagree at Round 3]
 ```
 
-### Phase 4 — Ambitious vision sketch
+## Phase 4
+
+**Phase 4 — Ambitious vision sketch.**
 
 Dispatch sequentially:
 
@@ -214,50 +224,85 @@ Dispatch sequentially:
 3. `Agent(subagent_type: "skp", ...)` — "Annotate the annotated vision with risk flags and failure scenarios."
 4. `Agent(subagent_type: "emp", ...)` — "Annotate the annotated vision with proof thresholds, discriminating experiments, and the evidence needed before scaling the bet."
 
-### Phase 5 — Output handoff
+## Phase 5
 
-The intended location is `target/explore/<topic-slug>-<YYYYMMDD-HHMMSS>.md`, but **`Write` is blocked under this skill** — do not attempt to save the file yourself. Two options:
+**Phase 5 — Output handoff to `.iteration-<N>/brief.md`.**
 
-- **Preferred**: end the skill, then ask the user to confirm before saving — or invoke `/execute` with a one-line criterion "save the explore output below" and let the IMP subagent write it.
-- **Inline alternative**: print the full document to the conversation so the user can copy it. State the intended path explicitly.
+> **First-time setup in your project** (do this once before your first `/explore` run):
+> 1. Add `.iteration-*/` to your project's `.gitignore`. This keeps `brief.md`, `verify-report.md`, and `decision-log.md` artifacts out of your commit stream by default.
+> 2. If you want to opt-in and commit a specific artifact (for example a final `verify-report.md`), add a negate line like `!.iteration-*/verify-report.md` to `.gitignore`, or use `git add -f <path>` per file.
+> 3. Briefs can contain verbatim user prompts and debug output. Before committing any `.iteration-<N>/*` file opt-in, run a pre-commit secret scan (for example `gitleaks protect --staged`) to catch accidental credential leaks.
 
-Document template:
+The synthesis document is saved to `.iteration-<N>/brief.md`, where `<N>` is the iteration number.
+
+**Before writing, validate the iteration directory name.** The directory must match the canonical regex:
+
+```
+^\.iteration-[1-9][0-9]*$
+```
+
+If the target directory name violates this regex, **abort with a hard error**. Do not silently skip. Do not auto-correct. Do not warn and continue. The user must fix the name explicitly. 침묵 스킵 금지. 자동 교정 금지.
+
+**Write path**: `.iteration-<N>/brief.md` (e.g., `.iteration-1/brief.md`). Any legacy per-topic dated path is **no longer used**; do not reintroduce it.
+
+Because `Write` is blocked under this skill, use one of:
+- **Preferred**: end the skill and hand off — invoke `/execute` with a one-line criterion "save the brief below to `.iteration-<N>/brief.md`" and let the IMP subagent materialize it (IMP follows its atomic-write protocol — see `agents/imp.md`).
+- **Inline alternative**: print the full document to the conversation; user saves manually.
+
+#### Brief template — required sections (exactly four)
+
+The `brief.md` document MUST contain exactly the following four top-level sections, in this order:
 
 ```markdown
-# Exploration: [topic]
-> Generated: [timestamp]
-> Personas: 🔴 OPT | 🟡 PRA | 🟢 SKP | 🔵 EMP
+## Bet
+[the strategic bet — what we think is worth doing and why]
 
-## Context snapshot
-[Phase 1 summary]
+## Appetite
+[how much time/effort we're willing to spend before stopping]
 
-## Horizon scan
-[Phase 2 highlights]
+## Boundaries / Non-goals
+[what we are explicitly NOT doing in this iteration]
 
-## Debate transcript
-### Decision 1: [name]
-#### Round 1
-🔴 OPT: ...
-🟡 PRA: ...
-🟢 SKP: ...
-🔵 EMP: ...
-#### Round 2
-...
-#### Round 3
-...
-#### Synthesis
-...
-
-## Ambitious vision (annotated)
-[Phase 4]
-
-## Suggested next steps
-[What the user should decide before /execute]
-
-## Synthesis table
-| Decision | Surviving position | Killed alternatives | Confidence | Needs user input? |
-|----------|-------------------|---------------------|------------|-------------------|
+## Risk-flagged rabbit-holes
+[zones VER should probe hard — flagged for Phase 1.5 adversarial authoring]
 ```
+
+#### Forbidden sections (MUST NOT contain)
+
+The brief is a **strategic document only**. The following sections are **forbidden** and must not appear:
+
+- `## Action Items`
+- `## Acceptance Criteria` (or any AC-like enumeration)
+- `## Tasks` / `## Task List`
+- `## To-do`
+
+These belong in `/execute` (PLN's increment plan), not in the brief. If the brief contains any of these forbidden sections, Phase 5 must halt with a hard error.
+
+#### Token limit
+
+`brief.md` MUST NOT exceed **2,000 tokens** (approximated as whitespace-separated words in this repo's harness — see `.harness/verifications/_shared/lib.sh`). If the content exceeds 2,000 tokens, truncate at the 2,000-token boundary and append `<!-- truncated -->` on its own line at the end of the file.
+
+#### Output ordering for the skill
+
+The skill-level document printed at Phase 5 end follows this template (now targeting `.iteration-<N>/brief.md` instead of the legacy path):
+
+```markdown
+# Exploration brief — iteration <N>
+
+## Bet
+...
+
+## Appetite
+...
+
+## Boundaries / Non-goals
+...
+
+## Risk-flagged rabbit-holes
+...
+```
+
+End of Phase 5.
 
 ---
 

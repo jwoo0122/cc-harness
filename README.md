@@ -139,6 +139,12 @@ To confirm the gate works, ask in `/cc-harness:explore` mode: "edit `/tmp/x.txt`
 
 The skills are pure orchestrators — they decide what to dispatch, when, and they collect outputs. The subagents do the actual cognition in isolated contexts. The hooks enforce who-can-touch-what at the tool layer, so role discipline is structural, not vibes.
 
+## Iteration artifacts
+
+Each `/explore` → `/execute` loop targets a dedicated iteration directory `.iteration-<N>/` (where `<N>` is `1, 2, 3…`, per regex `^\.iteration-[1-9][0-9]*$`). The layout holds three files: `brief.md` (strategic brief from `/explore` — bet, appetite, boundaries, risk-flagged rabbit-holes), `verify-report.md` (AC verification results from `/execute` Phase 3), and `decision-log.md` (freetext rationale captured at the user-gate checkpoint when re-entering the loop). See `docs/iteration-layout.md` for the full spec, opt-in tracking procedure, and pre-commit secret-scan guidance. By default `.iteration-*/` is gitignored.
+
+At the end of each `/execute` run, a **user-gated checkpoint** (Phase 3c) asks whether to enter the next iteration via `/explore`, fix-forward in the current iteration, or accept-and-exit. Picking "next iteration" requires a one-sentence freetext rationale that is carried forward into `.iteration-<N+1>/decision-log.md` so the next `/explore` session inherits the reason. Set `HARNESS_DISABLE_CHECKPOINT=1` to skip the prompt in CI/automation. A parallel `HARNESS_DISABLE_BRIEF=1` escape hatch lets `/execute` run without reading the brief, for legacy criteria-only flows.
+
 ## What got dropped from the pi version (and why)
 
 The pi extension layer adds five enforcement powers; in Claude Code these map differently:

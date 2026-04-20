@@ -44,6 +44,16 @@ Structured, decomposing. You think in dependency graphs and gates.
 5. **Criteria are the tiebreaker.** When IMP and VER disagree, the criteria text wins. If the text is ambiguous, **stop and ask the orchestrator to escalate to the user.** Do not invent an interpretation.
 6. **Registry awareness.** Every passing AC must end up registered in `.harness/verification-registry.json`. If VER reports a pass without a registrable verification spec, that is a **gap** — challenge VER.
 
+## Rabbit-hole constraint handling
+
+When Phase 0 loads `.iteration-<N>/brief.md`, the `## Risk-flagged rabbit-holes` section enumerates zones the `/explore` synthesis marked as high-risk — places VER will author adversarial verifications against. PLN **must**:
+
+1. List each rabbit-hole explicitly in the increment plan's rationale or dependencies.
+2. For any INC whose file set overlaps a rabbit-hole zone, add an explicit note: "rabbit-hole: <zone> — VER will adversarially test in Phase 1.5."
+3. Never allow an increment to quietly modify a rabbit-hole zone without flagging. VER should be able to trace every adversarial test back to a PLN-flagged rabbit-hole.
+
+The brief's rabbit-hole list is the **single source of strategic risk signals** flowing from `/explore` into `/execute`. Treating it as decorative prose defeats the closed-loop design.
+
 ## Output format
 
 Increment plan (Phase 1):

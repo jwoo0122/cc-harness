@@ -1,0 +1,346 @@
+{
+  "$schema": "harness-verification-registry-v1",
+  "entries": {
+    "AC-1.1": {
+      "requirement": "docs/iteration-layout.md이 세 필수 파일(brief.md, verify-report.md, decision-log.md)과 canonical 디렉터리 정규식을 문서화한다",
+      "source": ".iteration-1-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-1.1/happy.sh && bash .harness/verifications/ac-1.1/edge.sh",
+        "files": [
+          ".harness/verifications/ac-1.1/happy.sh",
+          ".harness/verifications/ac-1.1/edge.sh"
+        ],
+        "description": "docs/iteration-layout.md documents three required filenames and canonical regex; no legacy sink or alt-filename bullets"
+      },
+      "registeredAt": "INC-1",
+      "lastVerifiedAt": "INC-1",
+      "lastResult": "pass"
+    },
+    "AC-1.2-docs": {
+      "requirement": "canonical iteration-dir regex 리터럴이 docs/iteration-layout.md에 기록됨 (docs 측면; skill 측 강제는 INC-2/INC-4a에서 추가)",
+      "source": ".iteration-1-criteria.md",
+      "verification": {
+        "strategy": "lint-rule",
+        "command": "grep -Fq '^\\.iteration-[1-9][0-9]*$' docs/iteration-layout.md",
+        "files": ["docs/iteration-layout.md"],
+        "description": "canonical iteration-dir regex literal recorded in spec doc (docs-side only; skill-side enforcement pending)"
+      },
+      "registeredAt": "INC-1",
+      "lastVerifiedAt": "INC-1",
+      "lastResult": "pass"
+    },
+    "AC-1.3": {
+      "requirement": ".iteration-*/가 기본값으로 .gitignore에 포함되고 옵트인 트래킹 절차가 문서화됨",
+      "source": ".iteration-1-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-1.3/happy.sh && bash .harness/verifications/ac-1.3/edge.sh",
+        "files": [
+          ".harness/verifications/ac-1.3/happy.sh",
+          ".harness/verifications/ac-1.3/edge.sh",
+          ".gitignore"
+        ],
+        "description": ".iteration-*/ globally ignored by default; opt-in tracking procedure documented in layout doc"
+      },
+      "registeredAt": "INC-1",
+      "lastVerifiedAt": "INC-1",
+      "lastResult": "pass"
+    },
+    "AC-1.4": {
+      "requirement": "시크릿 스캔 가이던스가 문서에 명시됨 (도구 이름 + pre-commit 타이밍)",
+      "source": ".iteration-1-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-1.4/happy.sh",
+        "files": [
+          ".harness/verifications/ac-1.4/happy.sh",
+          "docs/iteration-layout.md"
+        ],
+        "description": "secret-scan tool named and pre-commit timing recommended in layout doc"
+      },
+      "registeredAt": "INC-1",
+      "lastVerifiedAt": "INC-1",
+      "lastResult": "pass"
+    },
+    "AC-2.1": {
+      "requirement": "/explore Phase 5가 .iteration-<N>/brief.md를 타겟 경로로 명시; 레거시 target/explore 경로 제거; 훅 로직 불변(SHA256 baseline)",
+      "source": ".iteration-1-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-2.1/happy.sh && bash .harness/verifications/ac-2.1/edge.sh",
+        "files": [
+          ".harness/verifications/ac-2.1/happy.sh",
+          ".harness/verifications/ac-2.1/edge.sh",
+          ".harness/verifications/ac-2.1/baseline.sha256",
+          "skills/explore/SKILL.md"
+        ],
+        "description": "Phase 5 hands off to .iteration-<N>/brief.md; no legacy path; hook scripts byte-identical to baseline"
+      },
+      "registeredAt": "INC-2",
+      "lastVerifiedAt": "INC-2",
+      "lastResult": "pass"
+    },
+    "AC-2.2": {
+      "requirement": "brief 템플릿 필수 4섹션(Bet/Appetite/Boundaries-Non-goals/Risk-flagged rabbit-holes) + 금지 섹션(Action Items/AC/Tasks/To-do) 명시적 enumerate",
+      "source": ".iteration-1-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-2.2/happy.sh && bash .harness/verifications/ac-2.2/edge.sh && bash .harness/verifications/ac-2.2/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-2.2/happy.sh",
+          ".harness/verifications/ac-2.2/edge.sh",
+          ".harness/verifications/ac-2.2/adversarial.sh",
+          "skills/explore/SKILL.md"
+        ],
+        "description": "brief template enforces exactly four canonical sections and explicitly forbids Action Items / AC / Tasks / To-do in a forbidden-section marker block"
+      },
+      "registeredAt": "INC-2",
+      "lastVerifiedAt": "INC-2",
+      "lastResult": "pass"
+    },
+    "AC-2.4": {
+      "requirement": "brief.md 2,000 토큰 상한 + <!-- truncated --> 마커 규약",
+      "source": ".iteration-1-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-2.4/happy.sh && bash .harness/verifications/ac-2.4/edge.sh",
+        "files": [
+          ".harness/verifications/ac-2.4/happy.sh",
+          ".harness/verifications/ac-2.4/edge.sh",
+          ".harness/verifications/_shared/lib.sh",
+          "skills/explore/SKILL.md"
+        ],
+        "description": "brief.md 2000-token cap with <!-- truncated --> sentinel (word-count approximation per _shared/lib.sh)"
+      },
+      "registeredAt": "INC-2",
+      "lastVerifiedAt": "INC-2",
+      "lastResult": "pass"
+    },
+    "AC-1.2-explore": {
+      "requirement": "/explore Phase 5 진입 시 디렉터리 이름이 canonical 정규식 위반하면 hard-error abort (silent skip / auto-correct / warn-and-continue 금지)",
+      "source": ".iteration-1-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-1.2-explore/happy.sh && bash .harness/verifications/ac-1.2-explore/edge.sh",
+        "files": [
+          ".harness/verifications/ac-1.2-explore/happy.sh",
+          ".harness/verifications/ac-1.2-explore/edge.sh",
+          "skills/explore/SKILL.md"
+        ],
+        "description": "explore SKILL Phase 5 enforces canonical regex ^\\.iteration-[1-9][0-9]*$ with hard-error abort on violation"
+      },
+      "registeredAt": "INC-2",
+      "lastVerifiedAt": "INC-2",
+      "lastResult": "pass"
+    },
+    "AC-2.3": {
+      "requirement": "IMP는 .iteration-<N>/{brief,verify-report,decision-log}.md 쓰기 시 tmp 파일 → atomic rename 프로토콜 사용",
+      "source": ".iteration-1-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-2.3/happy.sh && bash .harness/verifications/ac-2.3/edge.sh",
+        "files": [
+          ".harness/verifications/ac-2.3/happy.sh",
+          ".harness/verifications/ac-2.3/edge.sh",
+          "agents/imp.md",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "IMP atomic write protocol: write to .tmp → atomic rename. Documented in agents/imp.md; cross-referenced from skills/execute/SKILL.md"
+      },
+      "registeredAt": "INC-3",
+      "lastVerifiedAt": "INC-3",
+      "lastResult": "pass"
+    },
+    "AC-1.2-execute": {
+      "requirement": "/execute Phase 0 진입 시 이터레이션 디렉터리 이름이 canonical 정규식 위반하면 hard-error abort (silent skip / auto-correct / warn-and-continue 금지)",
+      "source": ".iteration-1-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-1.2-execute/happy.sh",
+        "files": [
+          ".harness/verifications/ac-1.2-execute/happy.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "execute SKILL Phase 0 enforces canonical regex ^\\.iteration-[1-9][0-9]*$ with hard-error abort on violation"
+      },
+      "registeredAt": "INC-4a",
+      "lastVerifiedAt": "INC-4a",
+      "lastResult": "pass"
+    },
+    "AC-3.1": {
+      "requirement": "/execute Phase 0a가 이터레이션 디렉터리 선택, 이름 검증(canonical regex), 0/1/N candidate 분기, hard-error abort 을 수행",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-3.1/happy.sh && bash .harness/verifications/ac-3.1/edge.sh && bash .harness/verifications/ac-3.1/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-3.1/happy.sh",
+          ".harness/verifications/ac-3.1/edge.sh",
+          ".harness/verifications/ac-3.1/adversarial.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "Phase 0a iteration selection: glob enumeration, canonical regex, single/multi/zero candidate branches, hard-error abort, Python regex oracle cross-check"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-3.2": {
+      "requirement": "/execute Phase 0가 brief 로드, rabbit-holes 언급; agents/pln.md rabbit-hole 규칙 섹션, PLN-rabbit-hole constraint 결합",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-3.2/happy.sh && bash .harness/verifications/ac-3.2/edge.sh",
+        "files": [
+          ".harness/verifications/ac-3.2/happy.sh",
+          ".harness/verifications/ac-3.2/edge.sh",
+          "skills/execute/SKILL.md",
+          "agents/pln.md"
+        ],
+        "description": "brief rabbit-holes flow into PLN as constraints"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-3.3a": {
+      "requirement": "/execute Phase 0가 <brief>...</brief> 래핑 + data-not-instructions directive + 모든 dispatch에 적용; skill 자체에 unguarded injection-seed 부재",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-3.3a/happy.sh && bash .harness/verifications/ac-3.3a/edge.sh && bash .harness/verifications/ac-3.3a/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-3.3a/happy.sh",
+          ".harness/verifications/ac-3.3a/edge.sh",
+          ".harness/verifications/ac-3.3a/adversarial.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "<brief> wrapping + data-not-instructions + universal scope + meta-guard for injection-seed phrases"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-3.4": {
+      "requirement": "/execute Phase 0가 HARNESS_DISABLE_BRIEF 이스케이프 해치 문서화 + skip branch + log line + rationale",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-3.4/happy.sh && bash .harness/verifications/ac-3.4/edge.sh",
+        "files": [
+          ".harness/verifications/ac-3.4/happy.sh",
+          ".harness/verifications/ac-3.4/edge.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "HARNESS_DISABLE_BRIEF escape hatch with legacy-fallback rationale"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-5.1a": {
+      "requirement": "/execute Phase 3 3c subsection: AskUserQuestion + 정확히 3선택지 (a)/(b)/(c) + HARNESS_DISABLE_CHECKPOINT",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-5.1a/happy.sh && bash .harness/verifications/ac-5.1a/edge.sh",
+        "files": [
+          ".harness/verifications/ac-5.1a/happy.sh",
+          ".harness/verifications/ac-5.1a/edge.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "Phase 3c checkpoint shape: 3 options, each ≥6 words, HARNESS_DISABLE_CHECKPOINT"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-5.1b": {
+      "requirement": "3c (a) 선택 시 ≥1 sentence freetext + .iteration-<N+1>/decision-log.md append + empty/Y-N 거부 + rubber-stamp rationale",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-5.1b/happy.sh && bash .harness/verifications/ac-5.1b/edge.sh",
+        "files": [
+          ".harness/verifications/ac-5.1b/happy.sh",
+          ".harness/verifications/ac-5.1b/edge.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "Freetext requirement + decision-log append + rejection of empty/Y-N"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-5.2": {
+      "requirement": "Freetext가 .iteration-<N+1>/decision-log.md에 append되고 다음 /explore session이 inherit; Phase 3 report appendix에 기록",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-5.2/happy.sh && bash .harness/verifications/ac-5.2/edge.sh",
+        "files": [
+          ".harness/verifications/ac-5.2/happy.sh",
+          ".harness/verifications/ac-5.2/edge.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "Freetext persistence across iteration boundary + /explore inheritance + report appendix capture"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-5.3": {
+      "requirement": "/execute Phase 3 HARNESS_DISABLE_CHECKPOINT 이스케이프 해치 + CI/automation rationale",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-5.3/happy.sh && bash .harness/verifications/ac-5.3/edge.sh",
+        "files": [
+          ".harness/verifications/ac-5.3/happy.sh",
+          ".harness/verifications/ac-5.3/edge.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "HARNESS_DISABLE_CHECKPOINT escape hatch with CI/automation rationale"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-C.1": {
+      "requirement": "_shared/lib.sh의 md_section이 fence-aware: ``` 또는 ~~~ 코드블럭 내부의 ## 라인을 섹션 종결자로 취급하지 않음",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-C.1/happy.sh && bash .harness/verifications/ac-C.1/edge.sh",
+        "files": [
+          ".harness/verifications/ac-C.1/happy.sh",
+          ".harness/verifications/ac-C.1/edge.sh",
+          ".harness/verifications/_shared/lib.sh"
+        ],
+        "description": "md_section helper fence-aware (backtick + tilde + info-string variants)"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-C.2": {
+      "requirement": "_shared/lib.sh의 grep_forbidden_phrase가 declaration-context 키워드(must not/do not/forbidden/금지/never/shall not/등)로 guarded match suppress; EC=1 on unguarded, EC=0 on all-guarded",
+      "source": ".iteration-2-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-C.2/happy.sh && bash .harness/verifications/ac-C.2/edge.sh && bash .harness/verifications/ac-C.2/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-C.2/happy.sh",
+          ".harness/verifications/ac-C.2/edge.sh",
+          ".harness/verifications/ac-C.2/adversarial.sh",
+          ".harness/verifications/_shared/lib.sh"
+        ],
+        "description": "grep_forbidden_phrase declaration-aware with known line-wide limitation locked by adversarial test"
+      },
+      "registeredAt": "ITER-2",
+      "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    }
+  }
+}

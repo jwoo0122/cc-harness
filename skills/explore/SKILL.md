@@ -119,7 +119,9 @@ Ask before writing the tension as "unresolved". Use `AskUserQuestion` with the t
 
 ## Procedure
 
-### Phase 0 — Topic clarification (mandatory if Trigger 1 fires)
+## Phase 0
+
+**Phase 0 — Topic clarification (mandatory if Trigger 1 fires).**
 
 Inspect `$ARGUMENTS`:
 - If empty or generic (one word, no scope): **Trigger 1 fires** — ask the user to choose a framing or supply scope before any other work.
@@ -127,7 +129,9 @@ Inspect `$ARGUMENTS`:
 
 Even when Trigger 1 doesn't fire, **briefly state your interpretation** of the topic in one sentence at the start of Phase 1 ("I'm interpreting `$ARGUMENTS` as: …"). If the user objects, re-frame before continuing.
 
-### Phase 1 — Context snapshot (you, read-only)
+## Phase 1
+
+**Phase 1 — Context snapshot (you, read-only).**
 
 Establish the factual base all four personas will share. Use `Read`, `Glob`, `Grep`:
 
@@ -141,7 +145,9 @@ Record a **3-sentence project status summary**. Persist it — every persona dis
 
 **Trigger 2 check (mandatory):** while reading, watch for contradictions or missing load-bearing context. If `CLAUDE.md` and the latest criteria disagree, or you cannot identify the active iteration, or a decision the topic depends on is logged as TBD — **stop and ask the user via `AskUserQuestion`** before moving to Phase 2. Surface the conflict verbatim in the question's options.
 
-### Phase 2 — Horizon scan (you, read-only + web)
+## Phase 2
+
+**Phase 2 — Horizon scan (you, read-only + web).**
 
 Cast a wide net before the debate. No persona work yet.
 
@@ -151,7 +157,9 @@ Cast a wide net before the debate. No persona work yet.
 4. **This codebase** — existing stubs, extension points, tech debt.
 5. **Wild field** — cross-domain analogies (game engines, compilers, databases, biology — anything).
 
-### Phase 3 — The Debate (subagent dispatch)
+## Phase 3
+
+**Phase 3 — The Debate (subagent dispatch).**
 
 For each significant decision point, run **3 rounds**.
 
@@ -205,7 +213,9 @@ Synthesis format:
 - Confidence: [high/medium/low — low if personas still fundamentally disagree at Round 3]
 ```
 
-### Phase 4 — Ambitious vision sketch
+## Phase 4
+
+**Phase 4 — Ambitious vision sketch.**
 
 Dispatch sequentially:
 

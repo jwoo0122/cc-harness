@@ -169,7 +169,9 @@ This wrapping and directive apply to **all** PLN, IMP, VER dispatches in Phase 1
 
 If PLN says baseline is broken → dispatch IMP to fix the named issues, loop back to VER. **Never proceed past a broken baseline.**
 
-### Phase 1 — Increment Planning (PLN leads, IMP & VER review)
+## Phase 1
+
+**Phase 1 — Increment Planning (PLN leads, IMP & VER review).**
 
 **Dispatch PLN** with criteria + baseline:
 ```
@@ -187,7 +189,9 @@ Format:
 
 If IMP or VER raises issues → re-dispatch PLN with the concerns. Loop until both approve.
 
-### Phase 1.5 — Verification Authoring (VER designs, IMP materializes)
+## Phase 1.5
+
+**Phase 1.5 — Verification Authoring (VER designs, IMP materializes).**
 
 **This phase runs BEFORE any production code is written.** VER takes PLN's approved plan, internalizes the goal of each increment, and designs the most **extreme and adversarial** verification corpus possible. The output is committed to `.harness/verifications/` as reusable scripts.
 
@@ -279,7 +283,9 @@ Infrastructure errors → dispatch IMP to fix the specific harness file only. Lo
 
 Once VER confirms the corpus is present, runnable, and correctly failing, each artifact is eligible to be registered (Phase 2d) once the production code that makes it pass lands.
 
-### Phase 2 — Execute Cycle (repeat per increment)
+## Phase 2
+
+**Phase 2 — Execute Cycle (repeat per increment).**
 
 #### 2a. IMP implements
 

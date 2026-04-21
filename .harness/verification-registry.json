@@ -729,6 +729,78 @@
       "registeredAt": "INC-4",
       "lastVerifiedAt": "INC-5",
       "lastResult": "pass"
+    },
+    "AC-D.1": {
+      "requirement": "Phase 1 PLN dispatch fork via HARNESS_PLN_PROVIDER=codex env; traditional Claude pln subagent default",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-D.1/happy.sh && bash .harness/verifications/ac-D.1/edge.sh && bash .harness/verifications/ac-D.1/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-D.1/happy.sh",
+          ".harness/verifications/ac-D.1/edge.sh",
+          ".harness/verifications/ac-D.1/adversarial.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "Phase 1 documents HARNESS_PLN_PROVIDER env var + codex branch + call-codex.sh dispatch path"
+      },
+      "registeredAt": "INC-6a",
+      "lastVerifiedAt": "INC-6b",
+      "lastResult": "pass"
+    },
+    "AC-D.2": {
+      "requirement": "Codex dispatch failure (exit 2/3) triggers loud-warned fallback to Claude PLN subagent; silent fallback forbidden",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-D.2/happy.sh && bash .harness/verifications/ac-D.2/edge.sh && bash .harness/verifications/ac-D.2/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-D.2/happy.sh",
+          ".harness/verifications/ac-D.2/edge.sh",
+          ".harness/verifications/ac-D.2/adversarial.sh",
+          "skills/execute/SKILL.md",
+          ".harness/scripts/call-codex.sh"
+        ],
+        "description": "preflight exit 2 + timeout exit 3 + SKILL.md binds both to Claude PLN fallback with stderr warning"
+      },
+      "registeredAt": "INC-6a",
+      "lastVerifiedAt": "INC-6b",
+      "lastResult": "pass"
+    },
+    "AC-D.3": {
+      "requirement": "PLN output format constraint documented in Phase 1 prompt: markdown bullet-list increment-plan structure; parse-failure triggers Claude fallback",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-D.3/happy.sh && bash .harness/verifications/ac-D.3/edge.sh && bash .harness/verifications/ac-D.3/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-D.3/happy.sh",
+          ".harness/verifications/ac-D.3/edge.sh",
+          ".harness/verifications/ac-D.3/adversarial.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "Phase 1 documents format constraint + parse-failure → Claude fallback; no silent-acceptance language"
+      },
+      "registeredAt": "INC-6b",
+      "lastVerifiedAt": "INC-6b",
+      "lastResult": "pass"
+    },
+    "AC-D.4": {
+      "requirement": "Phase 2d AC verdict cross-check pinned to Claude in iter-4 (Codex branching scoped to Phase 1 only; widening to Phase 2d is iter-5 scope)",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-D.4/happy.sh && bash .harness/verifications/ac-D.4/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-D.4/happy.sh",
+          ".harness/verifications/ac-D.4/adversarial.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "Phase 2d explicitly declares Claude-only PLN dispatch; no codex / HARNESS_PLN_PROVIDER references in 2d"
+      },
+      "registeredAt": "INC-6b",
+      "lastVerifiedAt": "INC-6b",
+      "lastResult": "pass"
     }
   }
 }

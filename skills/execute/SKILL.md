@@ -175,6 +175,18 @@ If PLN says baseline is broken → dispatch IMP to fix the named issues, loop ba
 
 **Phase 1 — Increment Planning (PLN leads, IMP & VER review).**
 
+#### PLN dispatch provider (optional Codex branch)
+
+By default PLN is dispatched as the Claude `pln` subagent (`Agent(subagent_type: "pln", ...)`). For multi-provider experimentation (see `docs/multi-provider-dispatch.md`), set env `HARNESS_PLN_PROVIDER=codex` before entering `/execute` to route the Phase 1 PLN planning call through `.harness/scripts/call-codex.sh` (OpenAI Codex CLI wrapper with preflight + loud-fail).
+
+- **`HARNESS_PLN_PROVIDER=codex`**: the orchestrator pipes PLN's full prompt into `bash .harness/scripts/call-codex.sh` instead of `Agent(subagent_type: "pln", ...)`. The script must be on disk and executable; Codex CLI must be installed with a valid `OPENAI_API_KEY`.
+- **`HARNESS_PLN_PROVIDER` unset or `=claude`**: traditional Claude PLN subagent (unchanged behavior).
+- The branch applies **only to Phase 1 planning dispatches**. Phase 2d AC verdict cross-check remains Claude-only this iteration (see Phase 2d note below).
+
+If the Codex dispatch exits non-zero (preflight failure exit 2, timeout exit 3, any runtime failure), the orchestrator MUST fall back to Claude PLN and emit a stderr warning `⚠ PLN Codex dispatch failed (rc=<N>); falling back to Claude subagent`. Silent fallback is forbidden.
+
+PLN output from either provider MUST match the increment-plan markdown bullet-list format documented below. If Codex output fails to parse as a well-formed plan (missing INC entries, wrong file-count bullets, no "Coverage check" line), fall back to Claude PLN with a parse-failure warning.
+
 **Dispatch PLN** with criteria + baseline:
 ```
 Output an increment plan. Decompose into micro-increments (≤3 files each).
@@ -340,6 +352,8 @@ silently soften a test. This is the whole point of authoring before implementati
 The registrable verification for each AC is the set of `.harness/verifications/ac-<id>/*` files — each with its own runner command. "I eyeballed it" is not registrable, and "the general test suite passes" is not AC-specific.
 
 #### 2d. VER checks ACs
+
+**Note on PLN provider in Phase 2d**: the cross-check dispatch below is **Claude-only** in iteration-4 and MUST use `Agent(subagent_type: "pln", ...)`. The optional alternative-provider branch documented in Phase 1 is intentionally scoped to Phase 1 planning this iteration; Phase 2d AC verdict consistency requires tight alignment with VER's verdict formatting, which is Claude-specific today. Widening the provider surface to Phase 2d is deferred to iter-5 scope.
 
 **Dispatch VER**:
 

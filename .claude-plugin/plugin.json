@@ -1,7 +1,7 @@
 {
   "name": "cc-harness",
   "version": "0.4.0",
-  "description": "Two Claude Code slash commands that enforce role separation, pre-arranged verification, and persistent iteration state. /explore runs a read-only debate; /execute gates tool access per role.",
+  "description": "Two Claude Code slash commands that enforce role separation between planning, implementation, and purpose-fit verification. /explore runs a read-only 4-persona debate; /execute gates tool access so only the Implementer can mutate.",
   "author": {
     "name": "Jinwoo Jeong"
   },

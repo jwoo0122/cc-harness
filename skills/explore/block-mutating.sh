@@ -44,9 +44,9 @@ Exception: Bash commands matching .harness/scripts/call-<provider>.sh
 dispatch scripts; all other Bash is blocked.
 
 The output of /explore is a synthesis document the user reviews. To ship,
-exit /explore and run /execute against acceptance criteria.
+exit /explore and run /execute against the agreed-on goal.
 
 If you intended to save the synthesis itself, print it to the conversation
-or hand the path to /execute as a one-line "save this document" criterion.
+or hand the path to /execute as a one-line "save this document" goal.
 EOF
 exit 2

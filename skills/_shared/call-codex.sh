@@ -41,8 +41,8 @@ preflight_fail() {
 }
 
 # --- timeout parsing (default 60) -----------------------------------------
-# Must be a positive integer. 0 and negative values are rejected loudly
-# (AC-B.3 adversarial forbids silently disabling the budget).
+# Must be a positive integer. 0 and negative values are rejected loudly —
+# silently disabling the timeout budget is a footgun.
 DEFAULT_TIMEOUT=60
 TIMEOUT="${HARNESS_CODEX_TIMEOUT:-$DEFAULT_TIMEOUT}"
 case "$TIMEOUT" in
@@ -75,7 +75,7 @@ case "$OPENAI_API_KEY" in
     ;;
   *)
     # Non-sk tokens (e.g. custom orgs) must at least be plausibly long.
-    # AC-B.2 edge rejects "not-a-real-key" (14 chars).
+    # Reject obvious placeholders like "not-a-real-key".
     if [ "${#OPENAI_API_KEY}" -lt 40 ]; then
       preflight_fail "OPENAI_API_KEY looks invalid (unexpected shape)"
     fi

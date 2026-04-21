@@ -7,7 +7,7 @@
     {
       "name": "cc-harness",
       "source": "./",
-      "description": "Two-command harness for Claude Code: role separation (PLN/IMP/VER), pre-arranged verification corpus, persistent iteration artifacts. /explore debates; /execute builds.",
+      "description": "Two-command harness for Claude Code: role separation (PLN/IMP/VER) with verification chosen to fit each goal. /explore debates read-only; /execute builds under a mutation gate.",
       "version": "0.4.0",
       "homepage": "https://github.com/jwoo0122/cc-harness",
       "repository": "https://github.com/jwoo0122/cc-harness",

@@ -23,7 +23,9 @@
       "verification": {
         "strategy": "lint-rule",
         "command": "grep -Fq '^\\.iteration-[1-9][0-9]*$' docs/iteration-layout.md",
-        "files": ["docs/iteration-layout.md"],
+        "files": [
+          "docs/iteration-layout.md"
+        ],
         "description": "canonical iteration-dir regex literal recorded in spec doc (docs-side only; skill-side enforcement pending)"
       },
       "registeredAt": "INC-1",
@@ -340,6 +342,190 @@
       },
       "registeredAt": "ITER-2",
       "lastVerifiedAt": "ITER-2",
+      "lastResult": "pass"
+    },
+    "AC-6.1": {
+      "requirement": "README.md 전체 단어 수(wc -w) ≤ 550",
+      "source": ".iteration-3-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-6.1/happy.sh",
+        "files": [
+          ".harness/verifications/ac-6.1/happy.sh",
+          "README.md"
+        ],
+        "description": "README word count ≤ 550"
+      },
+      "registeredAt": "ITER-3-INC-1",
+      "lastVerifiedAt": "ITER-3-INC-1",
+      "lastResult": "pass"
+    },
+    "AC-6.2": {
+      "requirement": "README.md 내 하이프 렉시콘 12토큰의 whole-word 대소문자 무시 합계 ≤ 4",
+      "source": ".iteration-3-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-6.2/happy.sh && bash .harness/verifications/ac-6.2/edge.sh",
+        "files": [
+          ".harness/verifications/ac-6.2/happy.sh",
+          ".harness/verifications/ac-6.2/edge.sh",
+          "README.md"
+        ],
+        "description": "README hype-word hits ≤ 4; word-boundary aware (excludes 'powerfully')"
+      },
+      "registeredAt": "ITER-3-INC-1",
+      "lastVerifiedAt": "ITER-3-INC-1",
+      "lastResult": "pass"
+    },
+    "AC-6.3": {
+      "requirement": "Install/Use it/Usage 헤딩 또는 /plugin marketplace add / /plugin install를 포함하는 contiguous 블록이 ≤ 15줄",
+      "source": ".iteration-3-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-6.3/happy.sh && bash .harness/verifications/ac-6.3/edge.sh",
+        "files": [
+          ".harness/verifications/ac-6.3/happy.sh",
+          ".harness/verifications/ac-6.3/edge.sh",
+          "README.md"
+        ],
+        "description": "Largest install-block span ≤ 15 lines; heading-bounded (terminates at next H2) or blank-line-bounded for slash-command runs"
+      },
+      "registeredAt": "ITER-3-INC-1",
+      "lastVerifiedAt": "ITER-3-INC-1",
+      "lastResult": "pass"
+    },
+    "AC-6.4": {
+      "requirement": "README.md의 GFM 테이블 수 ≤ 1 (fenced code block 내부 제외, blockquote 라인은 테이블로 취급하지 않음)",
+      "source": ".iteration-3-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-6.4/happy.sh && bash .harness/verifications/ac-6.4/edge.sh",
+        "files": [
+          ".harness/verifications/ac-6.4/happy.sh",
+          ".harness/verifications/ac-6.4/edge.sh",
+          "README.md"
+        ],
+        "description": "README GFM table count ≤ 1 (fence-aware; blockquote-pipe false positives excluded)"
+      },
+      "registeredAt": "ITER-3-INC-1",
+      "lastVerifiedAt": "ITER-3-INC-1",
+      "lastResult": "pass"
+    },
+    "AC-6.5": {
+      "requirement": "코드 펜스 외부에서 1인칭 대명사(I|we|our|my|us) 단어경계 매치 = 0",
+      "source": ".iteration-3-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-6.5/happy.sh && bash .harness/verifications/ac-6.5/edge.sh",
+        "files": [
+          ".harness/verifications/ac-6.5/happy.sh",
+          ".harness/verifications/ac-6.5/edge.sh",
+          "README.md"
+        ],
+        "description": "First-person pronoun count in non-fenced README prose = 0 (fence-stripping validated)"
+      },
+      "registeredAt": "ITER-3-INC-1",
+      "lastVerifiedAt": "ITER-3-INC-1",
+      "lastResult": "pass"
+    },
+    "AC-6.8": {
+      "requirement": "README.md가 .claude/hooks/*.py 등 비존재 훅 경로를 참조하지 않음; 참조된 skills/* 경로는 모두 실존",
+      "source": ".iteration-3-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-6.8/happy.sh",
+        "files": [
+          ".harness/verifications/ac-6.8/happy.sh",
+          "README.md"
+        ],
+        "description": "No references to non-existent .claude/hooks/*.py paths; every skills/* path in README resolves on disk"
+      },
+      "registeredAt": "ITER-3-INC-1",
+      "lastVerifiedAt": "ITER-3-INC-1",
+      "lastResult": "pass"
+    },
+    "AC-6.9": {
+      "requirement": "README.md가 `claude plugin install` 문자열을 포함하지 않음; install/marketplace 언급 시 `/plugin marketplace add` 또는 `/plugin install` 사용",
+      "source": ".iteration-3-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-6.9/happy.sh",
+        "files": [
+          ".harness/verifications/ac-6.9/happy.sh",
+          "README.md"
+        ],
+        "description": "Install guidance uses in-session slash commands; no forbidden 'claude plugin install' CLI string"
+      },
+      "registeredAt": "ITER-3-INC-1",
+      "lastVerifiedAt": "ITER-3-INC-1",
+      "lastResult": "pass"
+    },
+    "AC-6.10": {
+      "requirement": "README.md가 4개 원칙(self-confirmation avoidance / interview-on-ambiguity / pre-arranged verification / cross-session spec persistence) 키워드를 모두 포함하며 `(partial)` 또는 `\\bpartial\\b` 헤지 부재",
+      "source": ".iteration-3-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-6.10/happy.sh && bash .harness/verifications/ac-6.10/edge.sh",
+        "files": [
+          ".harness/verifications/ac-6.10/happy.sh",
+          ".harness/verifications/ac-6.10/edge.sh",
+          "README.md"
+        ],
+        "description": "README covers all 4 principle keyword groups; no 'partial' hedge adjective"
+      },
+      "registeredAt": "ITER-3-INC-1",
+      "lastVerifiedAt": "ITER-3-INC-1",
+      "lastResult": "pass"
+    },
+    "AC-6.11": {
+      "requirement": "README.md의 H2 수가 정확히 4일 때 본문 단어 수 stddev ≥ 25 (프로즈-매트릭스 방지 프록시). H2 ≠ 4면 trivial PASS. SKP deletion test는 PR 리뷰 체크리스트로 유지.",
+      "source": ".iteration-3-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-6.11/happy.sh && bash .harness/verifications/ac-6.11/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-6.11/happy.sh",
+          ".harness/verifications/ac-6.11/adversarial.sh",
+          "README.md"
+        ],
+        "description": "Prose-matrix proxy: H2=4 ⇒ stddev ≥ 25; H2≠4 ⇒ trivial pass. Known false-pass surfaces documented in bundle README."
+      },
+      "registeredAt": "ITER-3-INC-1",
+      "lastVerifiedAt": "ITER-3-INC-1",
+      "lastResult": "pass"
+    },
+    "AC-6.6": {
+      "requirement": ".claude-plugin/marketplace.json field plugins[0].description does not contain 3-persona, 3-role, or self-affirmation; length ≤ 200 chars",
+      "source": ".iteration-3-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-6.6/happy.sh",
+        "files": [
+          ".harness/verifications/ac-6.6/happy.sh",
+          ".claude-plugin/marketplace.json"
+        ],
+        "description": "marketplace.json plugins[0].description has length ≤ 200 and contains none of the banned substrings (3-persona, 3-role, self-affirmation)"
+      },
+      "registeredAt": "ITER-3-INC-2",
+      "lastVerifiedAt": "ITER-3-INC-2",
+      "lastResult": "pass"
+    },
+    "AC-6.7": {
+      "requirement": ".claude-plugin/plugin.json field description does not contain 3-persona, 3-role, or self-affirmation bias; shares ≥ 2 bigrams with marketplace.json description",
+      "source": ".iteration-3-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-6.7/happy.sh && bash .harness/verifications/ac-6.7/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-6.7/happy.sh",
+          ".harness/verifications/ac-6.7/adversarial.sh",
+          ".claude-plugin/plugin.json",
+          ".claude-plugin/marketplace.json"
+        ],
+        "description": "plugin.json description is substring-clean and shares ≥ 2 bigrams with marketplace.json description; bigram extractor is punctuation-robust"
+      },
+      "registeredAt": "ITER-3-INC-2",
+      "lastVerifiedAt": "ITER-3-INC-2",
       "lastResult": "pass"
     }
   }

@@ -23,3 +23,18 @@
 {"input": "bin.txt", "mode": "dry", "note": "HARNESS_BASELINE_EXTRA_INPUT rejected: binary", "provider": "claude", "round3_survival_rate": 0.0, "schema_version": 1, "skipped": "non-utf8-or-missing", "stance_agreement_rate": 0.0, "ts": "2026-04-21T09:04:28Z"}
 {"input": "(dry)", "mode": "dry", "note": "HARNESS_BASELINE_DRY=1 deterministic record", "provider": "claude", "round3_survival_rate": 0.5, "schema_version": 1, "stance_agreement_rate": 0.5, "ts": "2026-04-21T09:20:04Z"}
 {"input": "bin.txt", "mode": "dry", "note": "HARNESS_BASELINE_EXTRA_INPUT rejected: binary", "provider": "claude", "round3_survival_rate": 0.0, "schema_version": 1, "skipped": "non-utf8-or-missing", "stance_agreement_rate": 0.0, "ts": "2026-04-21T09:20:04Z"}
+{"input": "iter-1-structural.md", "iteration": 1, "mode": "mock", "provider": "codex", "round3_survival_rate": 0.1866, "schema_version": 1, "stance_agreement_rate": 0.7736, "ts": "2026-04-21T09:53:19Z"}
+{"input": "iter-1-structural.md", "iteration": 2, "mode": "mock", "provider": "codex", "round3_survival_rate": 0.1709, "schema_version": 1, "stance_agreement_rate": 0.1081, "ts": "2026-04-21T09:53:19Z"}
+{"input": "iter-1-structural.md", "iteration": 3, "mode": "mock", "provider": "codex", "round3_survival_rate": 0.2772, "schema_version": 1, "stance_agreement_rate": 0.1261, "ts": "2026-04-21T09:53:19Z"}
+{"input": "iter-1-structural.md", "iteration": 4, "mode": "mock", "provider": "codex", "round3_survival_rate": 0.4292, "schema_version": 1, "stance_agreement_rate": 0.4339, "ts": "2026-04-21T09:53:19Z"}
+{"input": "iter-1-structural.md", "iteration": 5, "mode": "mock", "provider": "codex", "round3_survival_rate": 0.4639, "schema_version": 1, "stance_agreement_rate": 0.6333, "ts": "2026-04-21T09:53:19Z"}
+{"input": "iter-2-tech-debt.md", "iteration": 1, "mode": "mock", "provider": "codex", "round3_survival_rate": 0.5883, "schema_version": 1, "stance_agreement_rate": 0.6721, "ts": "2026-04-21T09:53:19Z"}
+{"input": "iter-2-tech-debt.md", "iteration": 2, "mode": "mock", "provider": "codex", "round3_survival_rate": 0.7155, "schema_version": 1, "stance_agreement_rate": 0.3886, "ts": "2026-04-21T09:53:19Z"}
+{"input": "iter-2-tech-debt.md", "iteration": 3, "mode": "mock", "provider": "codex", "round3_survival_rate": 0.2639, "schema_version": 1, "stance_agreement_rate": 0.2341, "ts": "2026-04-21T09:53:19Z"}
+{"input": "iter-2-tech-debt.md", "iteration": 4, "mode": "mock", "provider": "codex", "round3_survival_rate": 0.5804, "schema_version": 1, "stance_agreement_rate": 0.3791, "ts": "2026-04-21T09:53:19Z"}
+{"input": "iter-2-tech-debt.md", "iteration": 5, "mode": "mock", "provider": "codex", "round3_survival_rate": 0.8098, "schema_version": 1, "stance_agreement_rate": 0.9748, "ts": "2026-04-21T09:53:19Z"}
+{"input": "iter-4-scoping.md", "iteration": 1, "mode": "mock", "provider": "codex", "round3_survival_rate": 0.3986, "schema_version": 1, "stance_agreement_rate": 0.1215, "ts": "2026-04-21T09:53:19Z"}
+{"input": "iter-4-scoping.md", "iteration": 2, "mode": "mock", "provider": "codex", "round3_survival_rate": 0.8833, "schema_version": 1, "stance_agreement_rate": 0.1226, "ts": "2026-04-21T09:53:19Z"}
+{"input": "iter-4-scoping.md", "iteration": 3, "mode": "mock", "provider": "codex", "round3_survival_rate": 0.9109, "schema_version": 1, "stance_agreement_rate": 0.6929, "ts": "2026-04-21T09:53:19Z"}
+{"input": "iter-4-scoping.md", "iteration": 4, "mode": "mock", "provider": "codex", "round3_survival_rate": 0.3228, "schema_version": 1, "stance_agreement_rate": 0.9804, "ts": "2026-04-21T09:53:20Z"}
+{"input": "iter-4-scoping.md", "iteration": 5, "mode": "mock", "provider": "codex", "round3_survival_rate": 0.79, "schema_version": 1, "stance_agreement_rate": 0.4661, "ts": "2026-04-21T09:53:20Z"}

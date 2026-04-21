@@ -527,6 +527,40 @@
       "registeredAt": "ITER-3-INC-2",
       "lastVerifiedAt": "ITER-3-INC-2",
       "lastResult": "pass"
+    },
+    "AC-A.1": {
+      "requirement": "Baseline variance experiment directory scaffold (README + manifest + corpus structure documented)",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-A.1/happy.sh && bash .harness/verifications/ac-A.1/edge.sh && bash .harness/verifications/ac-A.1/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-A.1/happy.sh",
+          ".harness/verifications/ac-A.1/edge.sh",
+          ".harness/verifications/ac-A.1/adversarial.sh"
+        ],
+        "description": "Baseline-variance README enumerates corpus fixtures, documents ≥3 noise sources + mitigations; 3-level check happy/edge/adversarial"
+      },
+      "registeredAt": "INC-1",
+      "lastVerifiedAt": "INC-1",
+      "lastResult": "pass"
+    },
+    "AC-A.2": {
+      "requirement": "Archived debate corpus selected (≥3 .md fixtures), manifested with real sha256 content hashes, provenance headers present",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-A.2/happy.sh && bash .harness/verifications/ac-A.2/edge.sh && bash .harness/verifications/ac-A.2/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-A.2/happy.sh",
+          ".harness/verifications/ac-A.2/edge.sh",
+          ".harness/verifications/ac-A.2/adversarial.sh"
+        ],
+        "description": "inputs/manifest.json enumerates ≥3 fixtures with real sha256; adversarial test asserts content-dependent hashing and topic-diversity via distinct top keywords"
+      },
+      "registeredAt": "INC-1",
+      "lastVerifiedAt": "INC-1",
+      "lastResult": "pass"
     }
   }
 }

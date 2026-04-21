@@ -669,6 +669,66 @@
       "registeredAt": "INC-3",
       "lastVerifiedAt": "INC-3",
       "lastResult": "pass"
+    },
+    "AC-C.1-hook": {
+      "requirement": "gate-mutating.sh whitelists provider-call Bash commands (from shared allowlist) for any agent_type; IMP's full mutating-tool allowance preserved; other Bash blocked",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-C.1-hook/happy.sh && bash .harness/verifications/ac-C.1-hook/edge.sh && bash .harness/verifications/ac-C.1-hook/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-C.1-hook/happy.sh",
+          ".harness/verifications/ac-C.1-hook/edge.sh",
+          ".harness/verifications/ac-C.1-hook/adversarial.sh",
+          ".harness/verifications/ac-C.1-hook/README.md",
+          ".harness/scripts/call-codex.sh",
+          "skills/_shared/_provider-allowlist.sh",
+          "skills/execute/gate-mutating.sh"
+        ],
+        "description": "execute-mode gate allows provider-call Bash via shared allowlist; IMP allowance preserved; invalid commands blocked"
+      },
+      "registeredAt": "INC-4",
+      "lastVerifiedAt": "INC-5",
+      "lastResult": "pass"
+    },
+    "AC-C.2-hook": {
+      "requirement": "block-mutating.sh mirrors gate-mutating.sh whitelist; dynamically re-sources shared allowlist; removing codex from shared file blocks subsequent call-codex.sh",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-C.2-hook/happy.sh && bash .harness/verifications/ac-C.2-hook/edge.sh && bash .harness/verifications/ac-C.2-hook/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-C.2-hook/happy.sh",
+          ".harness/verifications/ac-C.2-hook/edge.sh",
+          ".harness/verifications/ac-C.2-hook/adversarial.sh",
+          ".harness/verifications/ac-C.2-hook/README.md",
+          "skills/_shared/_provider-allowlist.sh",
+          "skills/explore/block-mutating.sh"
+        ],
+        "description": "explore-mode block mirrors execute-mode whitelist; hook dynamically sources shared allowlist (awk-based disable proves dynamic re-sourcing)"
+      },
+      "registeredAt": "INC-4",
+      "lastVerifiedAt": "INC-5",
+      "lastResult": "pass"
+    },
+    "AC-C.3-hook": {
+      "requirement": "Shared provider allowlist defines strict anchored regex (codex, gemini baseline; HARNESS_PROVIDERS env extension) rejecting suffix drift, path traversal, shell metacharacters",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-C.3-hook/happy.sh && bash .harness/verifications/ac-C.3-hook/edge.sh && bash .harness/verifications/ac-C.3-hook/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-C.3-hook/happy.sh",
+          ".harness/verifications/ac-C.3-hook/edge.sh",
+          ".harness/verifications/ac-C.3-hook/adversarial.sh",
+          ".harness/verifications/ac-C.3-hook/README.md",
+          "skills/_shared/_provider-allowlist.sh"
+        ],
+        "description": "HARNESS_PROVIDER_WHITELIST_REGEX anchored + harness_is_provider_call predicate; 8/8 bypass attempts blocked including shell metacharacters and path traversal"
+      },
+      "registeredAt": "INC-4",
+      "lastVerifiedAt": "INC-5",
+      "lastResult": "pass"
     }
   }
 }

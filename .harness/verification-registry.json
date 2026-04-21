@@ -596,6 +596,79 @@
       "registeredAt": "INC-2",
       "lastVerifiedAt": "INC-2",
       "lastResult": "pass"
+    },
+    "AC-B.1": {
+      "requirement": "call-codex.sh wrapper exists at .harness/scripts/, executable, correctly dispatches stdin → codex exec --json",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-B.1/happy.sh && bash .harness/verifications/ac-B.1/edge.sh && bash .harness/verifications/ac-B.1/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-B.1/happy.sh",
+          ".harness/verifications/ac-B.1/edge.sh",
+          ".harness/verifications/ac-B.1/adversarial.sh",
+          ".harness/scripts/call-codex.sh"
+        ],
+        "description": "call-codex.sh wrapper exists at canonical path, executable, shebang present, dispatches to codex binary with required env passthrough"
+      },
+      "registeredAt": "INC-3",
+      "lastVerifiedAt": "INC-3",
+      "lastResult": "pass"
+    },
+    "AC-B.2": {
+      "requirement": "Preflight auth check: missing binary + absent/invalid API key → rc==2 exact + '⚠ Codex preflight failed:' warning prefix. Runtime (quota/network) failures use rc!=0, rc!=2 to avoid conflation.",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-B.2/happy.sh && bash .harness/verifications/ac-B.2/edge.sh && bash .harness/verifications/ac-B.2/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-B.2/happy.sh",
+          ".harness/verifications/ac-B.2/edge.sh",
+          ".harness/verifications/ac-B.2/adversarial.sh",
+          ".harness/scripts/call-codex.sh"
+        ],
+        "description": "preflight rc==2 strict for missing-binary/stale-token/absent-token; runtime failures distinct; anchored stderr warning prefix"
+      },
+      "registeredAt": "INC-3",
+      "lastVerifiedAt": "INC-3",
+      "lastResult": "pass"
+    },
+    "AC-B.3": {
+      "requirement": "Timeout with HARNESS_CODEX_TIMEOUT env override (default 60s); timeout exit rc==3 + stderr warning; invalid timeout (0, negative) rejected with stderr message.",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-B.3/happy.sh && bash .harness/verifications/ac-B.3/edge.sh && bash .harness/verifications/ac-B.3/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-B.3/happy.sh",
+          ".harness/verifications/ac-B.3/edge.sh",
+          ".harness/verifications/ac-B.3/adversarial.sh",
+          ".harness/scripts/call-codex.sh"
+        ],
+        "description": "default 60s in source; env override honored; rc==3 on timeout with elapsed<10s; invalid values (0, negative) rejected"
+      },
+      "registeredAt": "INC-3",
+      "lastVerifiedAt": "INC-3",
+      "lastResult": "pass"
+    },
+    "AC-B.4": {
+      "requirement": "Injection safety: prompt received via stdin only (not ARGV); shell metacharacters in prompt don't create side-effect files in cwd; stdin byte-identical forwarding to codex.",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-B.4/happy.sh && bash .harness/verifications/ac-B.4/edge.sh && bash .harness/verifications/ac-B.4/adversarial.sh && bash .harness/verifications/ac-B.4/property.sh",
+        "files": [
+          ".harness/verifications/ac-B.4/happy.sh",
+          ".harness/verifications/ac-B.4/edge.sh",
+          ".harness/verifications/ac-B.4/adversarial.sh",
+          ".harness/verifications/ac-B.4/property.sh",
+          ".harness/scripts/call-codex.sh"
+        ],
+        "description": "stdin-only handling via property fuzz (30 random blobs byte-identical forwarded); metachar prompts don't create extra scratch files beyond whitelisted sinks"
+      },
+      "registeredAt": "INC-3",
+      "lastVerifiedAt": "INC-3",
+      "lastResult": "pass"
     }
   }
 }

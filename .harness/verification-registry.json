@@ -2,7 +2,7 @@
   "$schema": "harness-verification-registry-v1",
   "entries": {
     "AC-1.1": {
-      "requirement": "docs/iteration-layout.md이 세 필수 파일(brief.md, verify-report.md, decision-log.md)과 canonical 디렉터리 정규식을 문서화한다",
+      "requirement": "docs/iteration-layout.md\uc774 \uc138 \ud544\uc218 \ud30c\uc77c(brief.md, verify-report.md, decision-log.md)\uacfc canonical \ub514\ub809\ud130\ub9ac \uc815\uaddc\uc2dd\uc744 \ubb38\uc11c\ud654\ud55c\ub2e4",
       "source": ".iteration-1-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -18,7 +18,7 @@
       "lastResult": "pass"
     },
     "AC-1.2-docs": {
-      "requirement": "canonical iteration-dir regex 리터럴이 docs/iteration-layout.md에 기록됨 (docs 측면; skill 측 강제는 INC-2/INC-4a에서 추가)",
+      "requirement": "canonical iteration-dir regex \ub9ac\ud130\ub7f4\uc774 docs/iteration-layout.md\uc5d0 \uae30\ub85d\ub428 (docs \uce21\uba74; skill \uce21 \uac15\uc81c\ub294 INC-2/INC-4a\uc5d0\uc11c \ucd94\uac00)",
       "source": ".iteration-1-criteria.md",
       "verification": {
         "strategy": "lint-rule",
@@ -33,7 +33,7 @@
       "lastResult": "pass"
     },
     "AC-1.3": {
-      "requirement": ".iteration-*/가 기본값으로 .gitignore에 포함되고 옵트인 트래킹 절차가 문서화됨",
+      "requirement": ".iteration-*/\uac00 \uae30\ubcf8\uac12\uc73c\ub85c .gitignore\uc5d0 \ud3ec\ud568\ub418\uace0 \uc635\ud2b8\uc778 \ud2b8\ub798\ud0b9 \uc808\ucc28\uac00 \ubb38\uc11c\ud654\ub428",
       "source": ".iteration-1-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -50,7 +50,7 @@
       "lastResult": "pass"
     },
     "AC-1.4": {
-      "requirement": "시크릿 스캔 가이던스가 문서에 명시됨 (도구 이름 + pre-commit 타이밍)",
+      "requirement": "\uc2dc\ud06c\ub9bf \uc2a4\uce94 \uac00\uc774\ub358\uc2a4\uac00 \ubb38\uc11c\uc5d0 \uba85\uc2dc\ub428 (\ub3c4\uad6c \uc774\ub984 + pre-commit \ud0c0\uc774\ubc0d)",
       "source": ".iteration-1-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -66,7 +66,7 @@
       "lastResult": "pass"
     },
     "AC-2.1": {
-      "requirement": "/explore Phase 5가 .iteration-<N>/brief.md를 타겟 경로로 명시; 레거시 target/explore 경로 제거; 훅 로직 불변(SHA256 baseline)",
+      "requirement": "/explore Phase 5\uac00 .iteration-<N>/brief.md\ub97c \ud0c0\uac9f \uacbd\ub85c\ub85c \uba85\uc2dc; \ub808\uac70\uc2dc target/explore \uacbd\ub85c \uc81c\uac70; \ud6c5 \ub85c\uc9c1 \ubd88\ubcc0(SHA256 baseline)",
       "source": ".iteration-1-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -84,7 +84,7 @@
       "lastResult": "pass"
     },
     "AC-2.2": {
-      "requirement": "brief 템플릿 필수 4섹션(Bet/Appetite/Boundaries-Non-goals/Risk-flagged rabbit-holes) + 금지 섹션(Action Items/AC/Tasks/To-do) 명시적 enumerate",
+      "requirement": "brief \ud15c\ud50c\ub9bf \ud544\uc218 4\uc139\uc158(Bet/Appetite/Boundaries-Non-goals/Risk-flagged rabbit-holes) + \uae08\uc9c0 \uc139\uc158(Action Items/AC/Tasks/To-do) \uba85\uc2dc\uc801 enumerate",
       "source": ".iteration-1-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -102,7 +102,7 @@
       "lastResult": "pass"
     },
     "AC-2.4": {
-      "requirement": "brief.md 2,000 토큰 상한 + <!-- truncated --> 마커 규약",
+      "requirement": "brief.md 2,000 \ud1a0\ud070 \uc0c1\ud55c + <!-- truncated --> \ub9c8\ucee4 \uaddc\uc57d",
       "source": ".iteration-1-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -120,7 +120,7 @@
       "lastResult": "pass"
     },
     "AC-1.2-explore": {
-      "requirement": "/explore Phase 5 진입 시 디렉터리 이름이 canonical 정규식 위반하면 hard-error abort (silent skip / auto-correct / warn-and-continue 금지)",
+      "requirement": "/explore Phase 5 \uc9c4\uc785 \uc2dc \ub514\ub809\ud130\ub9ac \uc774\ub984\uc774 canonical \uc815\uaddc\uc2dd \uc704\ubc18\ud558\uba74 hard-error abort (silent skip / auto-correct / warn-and-continue \uae08\uc9c0)",
       "source": ".iteration-1-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -137,7 +137,7 @@
       "lastResult": "pass"
     },
     "AC-2.3": {
-      "requirement": "IMP는 .iteration-<N>/{brief,verify-report,decision-log}.md 쓰기 시 tmp 파일 → atomic rename 프로토콜 사용",
+      "requirement": "IMP\ub294 .iteration-<N>/{brief,verify-report,decision-log}.md \uc4f0\uae30 \uc2dc tmp \ud30c\uc77c \u2192 atomic rename \ud504\ub85c\ud1a0\ucf5c \uc0ac\uc6a9",
       "source": ".iteration-1-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -148,14 +148,14 @@
           "agents/imp.md",
           "skills/execute/SKILL.md"
         ],
-        "description": "IMP atomic write protocol: write to .tmp → atomic rename. Documented in agents/imp.md; cross-referenced from skills/execute/SKILL.md"
+        "description": "IMP atomic write protocol: write to .tmp \u2192 atomic rename. Documented in agents/imp.md; cross-referenced from skills/execute/SKILL.md"
       },
       "registeredAt": "INC-3",
       "lastVerifiedAt": "INC-3",
       "lastResult": "pass"
     },
     "AC-1.2-execute": {
-      "requirement": "/execute Phase 0 진입 시 이터레이션 디렉터리 이름이 canonical 정규식 위반하면 hard-error abort (silent skip / auto-correct / warn-and-continue 금지)",
+      "requirement": "/execute Phase 0 \uc9c4\uc785 \uc2dc \uc774\ud130\ub808\uc774\uc158 \ub514\ub809\ud130\ub9ac \uc774\ub984\uc774 canonical \uc815\uaddc\uc2dd \uc704\ubc18\ud558\uba74 hard-error abort (silent skip / auto-correct / warn-and-continue \uae08\uc9c0)",
       "source": ".iteration-1-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -171,7 +171,7 @@
       "lastResult": "pass"
     },
     "AC-3.1": {
-      "requirement": "/execute Phase 0a가 이터레이션 디렉터리 선택, 이름 검증(canonical regex), 0/1/N candidate 분기, hard-error abort 을 수행",
+      "requirement": "/execute Phase 0a\uac00 \uc774\ud130\ub808\uc774\uc158 \ub514\ub809\ud130\ub9ac \uc120\ud0dd, \uc774\ub984 \uac80\uc99d(canonical regex), 0/1/N candidate \ubd84\uae30, hard-error abort \uc744 \uc218\ud589",
       "source": ".iteration-2-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -189,7 +189,7 @@
       "lastResult": "pass"
     },
     "AC-3.2": {
-      "requirement": "/execute Phase 0가 brief 로드, rabbit-holes 언급; agents/pln.md rabbit-hole 규칙 섹션, PLN-rabbit-hole constraint 결합",
+      "requirement": "/execute Phase 0\uac00 brief \ub85c\ub4dc, rabbit-holes \uc5b8\uae09; agents/pln.md rabbit-hole \uaddc\uce59 \uc139\uc158, PLN-rabbit-hole constraint \uacb0\ud569",
       "source": ".iteration-2-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -207,7 +207,7 @@
       "lastResult": "pass"
     },
     "AC-3.3a": {
-      "requirement": "/execute Phase 0가 <brief>...</brief> 래핑 + data-not-instructions directive + 모든 dispatch에 적용; skill 자체에 unguarded injection-seed 부재",
+      "requirement": "/execute Phase 0\uac00 <brief>...</brief> \ub798\ud551 + data-not-instructions directive + \ubaa8\ub4e0 dispatch\uc5d0 \uc801\uc6a9; skill \uc790\uccb4\uc5d0 unguarded injection-seed \ubd80\uc7ac",
       "source": ".iteration-2-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -225,7 +225,7 @@
       "lastResult": "pass"
     },
     "AC-3.4": {
-      "requirement": "/execute Phase 0가 HARNESS_DISABLE_BRIEF 이스케이프 해치 문서화 + skip branch + log line + rationale",
+      "requirement": "/execute Phase 0\uac00 HARNESS_DISABLE_BRIEF \uc774\uc2a4\ucf00\uc774\ud504 \ud574\uce58 \ubb38\uc11c\ud654 + skip branch + log line + rationale",
       "source": ".iteration-2-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -242,7 +242,7 @@
       "lastResult": "pass"
     },
     "AC-5.1a": {
-      "requirement": "/execute Phase 3 3c subsection: AskUserQuestion + 정확히 3선택지 (a)/(b)/(c) + HARNESS_DISABLE_CHECKPOINT",
+      "requirement": "/execute Phase 3 3c subsection: AskUserQuestion + \uc815\ud655\ud788 3\uc120\ud0dd\uc9c0 (a)/(b)/(c) + HARNESS_DISABLE_CHECKPOINT",
       "source": ".iteration-2-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -252,14 +252,14 @@
           ".harness/verifications/ac-5.1a/edge.sh",
           "skills/execute/SKILL.md"
         ],
-        "description": "Phase 3c checkpoint shape: 3 options, each ≥6 words, HARNESS_DISABLE_CHECKPOINT"
+        "description": "Phase 3c checkpoint shape: 3 options, each \u22656 words, HARNESS_DISABLE_CHECKPOINT"
       },
       "registeredAt": "ITER-2",
       "lastVerifiedAt": "ITER-2",
       "lastResult": "pass"
     },
     "AC-5.1b": {
-      "requirement": "3c (a) 선택 시 ≥1 sentence freetext + .iteration-<N+1>/decision-log.md append + empty/Y-N 거부 + rubber-stamp rationale",
+      "requirement": "3c (a) \uc120\ud0dd \uc2dc \u22651 sentence freetext + .iteration-<N+1>/decision-log.md append + empty/Y-N \uac70\ubd80 + rubber-stamp rationale",
       "source": ".iteration-2-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -276,7 +276,7 @@
       "lastResult": "pass"
     },
     "AC-5.2": {
-      "requirement": "Freetext가 .iteration-<N+1>/decision-log.md에 append되고 다음 /explore session이 inherit; Phase 3 report appendix에 기록",
+      "requirement": "Freetext\uac00 .iteration-<N+1>/decision-log.md\uc5d0 append\ub418\uace0 \ub2e4\uc74c /explore session\uc774 inherit; Phase 3 report appendix\uc5d0 \uae30\ub85d",
       "source": ".iteration-2-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -293,7 +293,7 @@
       "lastResult": "pass"
     },
     "AC-5.3": {
-      "requirement": "/execute Phase 3 HARNESS_DISABLE_CHECKPOINT 이스케이프 해치 + CI/automation rationale",
+      "requirement": "/execute Phase 3 HARNESS_DISABLE_CHECKPOINT \uc774\uc2a4\ucf00\uc774\ud504 \ud574\uce58 + CI/automation rationale",
       "source": ".iteration-2-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -310,7 +310,7 @@
       "lastResult": "pass"
     },
     "AC-C.1": {
-      "requirement": "_shared/lib.sh의 md_section이 fence-aware: ``` 또는 ~~~ 코드블럭 내부의 ## 라인을 섹션 종결자로 취급하지 않음",
+      "requirement": "_shared/lib.sh\uc758 md_section\uc774 fence-aware: ``` \ub610\ub294 ~~~ \ucf54\ub4dc\ube14\ub7ed \ub0b4\ubd80\uc758 ## \ub77c\uc778\uc744 \uc139\uc158 \uc885\uacb0\uc790\ub85c \ucde8\uae09\ud558\uc9c0 \uc54a\uc74c",
       "source": ".iteration-2-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -327,7 +327,7 @@
       "lastResult": "pass"
     },
     "AC-C.2": {
-      "requirement": "_shared/lib.sh의 grep_forbidden_phrase가 declaration-context 키워드(must not/do not/forbidden/금지/never/shall not/등)로 guarded match suppress; EC=1 on unguarded, EC=0 on all-guarded",
+      "requirement": "_shared/lib.sh\uc758 grep_forbidden_phrase\uac00 declaration-context \ud0a4\uc6cc\ub4dc(must not/do not/forbidden/\uae08\uc9c0/never/shall not/\ub4f1)\ub85c guarded match suppress; EC=1 on unguarded, EC=0 on all-guarded",
       "source": ".iteration-2-criteria.md",
       "verification": {
         "strategy": "automated-test",
@@ -526,6 +526,318 @@
       },
       "registeredAt": "ITER-3-INC-2",
       "lastVerifiedAt": "ITER-3-INC-2",
+      "lastResult": "pass"
+    },
+    "AC-A.1": {
+      "requirement": "Baseline variance experiment directory scaffold (README + manifest + corpus structure documented)",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-A.1/happy.sh && bash .harness/verifications/ac-A.1/edge.sh && bash .harness/verifications/ac-A.1/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-A.1/happy.sh",
+          ".harness/verifications/ac-A.1/edge.sh",
+          ".harness/verifications/ac-A.1/adversarial.sh"
+        ],
+        "description": "Baseline-variance README enumerates corpus fixtures, documents \u22653 noise sources + mitigations; 3-level check happy/edge/adversarial"
+      },
+      "registeredAt": "INC-1",
+      "lastVerifiedAt": "INC-1",
+      "lastResult": "pass"
+    },
+    "AC-A.2": {
+      "requirement": "Archived debate corpus selected (\u22653 .md fixtures), manifested with real sha256 content hashes, provenance headers present",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-A.2/happy.sh && bash .harness/verifications/ac-A.2/edge.sh && bash .harness/verifications/ac-A.2/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-A.2/happy.sh",
+          ".harness/verifications/ac-A.2/edge.sh",
+          ".harness/verifications/ac-A.2/adversarial.sh"
+        ],
+        "description": "inputs/manifest.json enumerates \u22653 fixtures with real sha256; adversarial test asserts content-dependent hashing and topic-diversity via distinct top keywords"
+      },
+      "registeredAt": "INC-1",
+      "lastVerifiedAt": "INC-1",
+      "lastResult": "pass"
+    },
+    "AC-A.3": {
+      "requirement": "Measurement script (run.sh) generates per-input/iteration rows in results.jsonl with schema_version, stance_agreement_rate, round3_survival_rate, ts, provider, mode; supports HARNESS_BASELINE_MODE=mock|real switch",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-A.3/happy.sh && bash .harness/verifications/ac-A.3/edge.sh && bash .harness/verifications/ac-A.3/adversarial.sh && bash .harness/verifications/ac-A.3/property.sh",
+        "files": [
+          ".harness/verifications/ac-A.3/happy.sh",
+          ".harness/verifications/ac-A.3/edge.sh",
+          ".harness/verifications/ac-A.3/adversarial.sh",
+          ".harness/verifications/ac-A.3/property.sh"
+        ],
+        "description": "run.sh appends schema-valid JSONL with [0,1]-invariant rate metrics; append-only across invocations; dry-run safe on adversarial corpus"
+      },
+      "registeredAt": "INC-2",
+      "lastVerifiedAt": "INC-2",
+      "lastResult": "pass"
+    },
+    "AC-A.4": {
+      "requirement": "summary.md auto-regenerated from results.jsonl with mean, \u03c3, 95% CI, sample count; includes rabbit-hole #6 caveat text about correlated provider failure detection scope",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-A.4/happy.sh && bash .harness/verifications/ac-A.4/edge.sh && bash .harness/verifications/ac-A.4/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-A.4/happy.sh",
+          ".harness/verifications/ac-A.4/edge.sh",
+          ".harness/verifications/ac-A.4/adversarial.sh"
+        ],
+        "description": "summary.md derived deterministically from results.jsonl with mean/\u03c3/95%CI/N for stance_agreement and round3_survival metrics; includes echo-chamber caveat"
+      },
+      "registeredAt": "INC-2",
+      "lastVerifiedAt": "INC-2",
+      "lastResult": "pass"
+    },
+    "AC-B.1": {
+      "requirement": "call-codex.sh wrapper exists at .harness/scripts/, executable, correctly dispatches stdin \u2192 codex exec --json",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-B.1/happy.sh && bash .harness/verifications/ac-B.1/edge.sh && bash .harness/verifications/ac-B.1/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-B.1/happy.sh",
+          ".harness/verifications/ac-B.1/edge.sh",
+          ".harness/verifications/ac-B.1/adversarial.sh",
+          "skills/_shared/call-codex.sh"
+        ],
+        "description": "call-codex.sh wrapper exists at canonical path, executable, shebang present, dispatches to codex binary with required env passthrough"
+      },
+      "registeredAt": "INC-3",
+      "lastVerifiedAt": "INC-3",
+      "lastResult": "pass"
+    },
+    "AC-B.2": {
+      "requirement": "Preflight auth check: missing binary + absent/invalid API key \u2192 rc==2 exact + '\u26a0 Codex preflight failed:' warning prefix. Runtime (quota/network) failures use rc!=0, rc!=2 to avoid conflation.",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-B.2/happy.sh && bash .harness/verifications/ac-B.2/edge.sh && bash .harness/verifications/ac-B.2/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-B.2/happy.sh",
+          ".harness/verifications/ac-B.2/edge.sh",
+          ".harness/verifications/ac-B.2/adversarial.sh",
+          "skills/_shared/call-codex.sh"
+        ],
+        "description": "preflight rc==2 strict for missing-binary/stale-token/absent-token; runtime failures distinct; anchored stderr warning prefix"
+      },
+      "registeredAt": "INC-3",
+      "lastVerifiedAt": "INC-3",
+      "lastResult": "pass"
+    },
+    "AC-B.3": {
+      "requirement": "Timeout with HARNESS_CODEX_TIMEOUT env override (default 60s); timeout exit rc==3 + stderr warning; invalid timeout (0, negative) rejected with stderr message.",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-B.3/happy.sh && bash .harness/verifications/ac-B.3/edge.sh && bash .harness/verifications/ac-B.3/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-B.3/happy.sh",
+          ".harness/verifications/ac-B.3/edge.sh",
+          ".harness/verifications/ac-B.3/adversarial.sh",
+          "skills/_shared/call-codex.sh"
+        ],
+        "description": "default 60s in source; env override honored; rc==3 on timeout with elapsed<10s; invalid values (0, negative) rejected"
+      },
+      "registeredAt": "INC-3",
+      "lastVerifiedAt": "INC-3",
+      "lastResult": "pass"
+    },
+    "AC-B.4": {
+      "requirement": "Injection safety: prompt received via stdin only (not ARGV); shell metacharacters in prompt don't create side-effect files in cwd; stdin byte-identical forwarding to codex.",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-B.4/happy.sh && bash .harness/verifications/ac-B.4/edge.sh && bash .harness/verifications/ac-B.4/adversarial.sh && bash .harness/verifications/ac-B.4/property.sh",
+        "files": [
+          ".harness/verifications/ac-B.4/happy.sh",
+          ".harness/verifications/ac-B.4/edge.sh",
+          ".harness/verifications/ac-B.4/adversarial.sh",
+          ".harness/verifications/ac-B.4/property.sh",
+          "skills/_shared/call-codex.sh"
+        ],
+        "description": "stdin-only handling via property fuzz (30 random blobs byte-identical forwarded); metachar prompts don't create extra scratch files beyond whitelisted sinks"
+      },
+      "registeredAt": "INC-3",
+      "lastVerifiedAt": "INC-3",
+      "lastResult": "pass"
+    },
+    "AC-C.1-hook": {
+      "requirement": "gate-mutating.sh whitelists provider-call Bash commands (from shared allowlist) for any agent_type; IMP's full mutating-tool allowance preserved; other Bash blocked",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-C.1-hook/happy.sh && bash .harness/verifications/ac-C.1-hook/edge.sh && bash .harness/verifications/ac-C.1-hook/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-C.1-hook/happy.sh",
+          ".harness/verifications/ac-C.1-hook/edge.sh",
+          ".harness/verifications/ac-C.1-hook/adversarial.sh",
+          ".harness/verifications/ac-C.1-hook/README.md",
+          "skills/_shared/call-codex.sh",
+          "skills/_shared/_provider-allowlist.sh",
+          "skills/execute/gate-mutating.sh"
+        ],
+        "description": "execute-mode gate allows provider-call Bash via shared allowlist; IMP allowance preserved; invalid commands blocked"
+      },
+      "registeredAt": "INC-4",
+      "lastVerifiedAt": "INC-5",
+      "lastResult": "pass"
+    },
+    "AC-C.2-hook": {
+      "requirement": "block-mutating.sh mirrors gate-mutating.sh whitelist; dynamically re-sources shared allowlist; removing codex from shared file blocks subsequent call-codex.sh",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-C.2-hook/happy.sh && bash .harness/verifications/ac-C.2-hook/edge.sh && bash .harness/verifications/ac-C.2-hook/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-C.2-hook/happy.sh",
+          ".harness/verifications/ac-C.2-hook/edge.sh",
+          ".harness/verifications/ac-C.2-hook/adversarial.sh",
+          ".harness/verifications/ac-C.2-hook/README.md",
+          "skills/_shared/_provider-allowlist.sh",
+          "skills/explore/block-mutating.sh"
+        ],
+        "description": "explore-mode block mirrors execute-mode whitelist; hook dynamically sources shared allowlist (awk-based disable proves dynamic re-sourcing)"
+      },
+      "registeredAt": "INC-4",
+      "lastVerifiedAt": "INC-5",
+      "lastResult": "pass"
+    },
+    "AC-C.3-hook": {
+      "requirement": "Shared provider allowlist defines strict anchored regex (codex, gemini baseline; HARNESS_PROVIDERS env extension) rejecting suffix drift, path traversal, shell metacharacters",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-C.3-hook/happy.sh && bash .harness/verifications/ac-C.3-hook/edge.sh && bash .harness/verifications/ac-C.3-hook/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-C.3-hook/happy.sh",
+          ".harness/verifications/ac-C.3-hook/edge.sh",
+          ".harness/verifications/ac-C.3-hook/adversarial.sh",
+          ".harness/verifications/ac-C.3-hook/README.md",
+          "skills/_shared/_provider-allowlist.sh"
+        ],
+        "description": "HARNESS_PROVIDER_WHITELIST_REGEX anchored + harness_is_provider_call predicate; 8/8 bypass attempts blocked including shell metacharacters and path traversal"
+      },
+      "registeredAt": "INC-4",
+      "lastVerifiedAt": "INC-5",
+      "lastResult": "pass"
+    },
+    "AC-D.1": {
+      "requirement": "Phase 1 PLN dispatch fork via HARNESS_PLN_PROVIDER=codex env; traditional Claude pln subagent default",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-D.1/happy.sh && bash .harness/verifications/ac-D.1/edge.sh && bash .harness/verifications/ac-D.1/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-D.1/happy.sh",
+          ".harness/verifications/ac-D.1/edge.sh",
+          ".harness/verifications/ac-D.1/adversarial.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "Phase 1 documents HARNESS_PLN_PROVIDER env var + codex branch + call-codex.sh dispatch path"
+      },
+      "registeredAt": "INC-6a",
+      "lastVerifiedAt": "INC-6b",
+      "lastResult": "pass"
+    },
+    "AC-D.2": {
+      "requirement": "Codex dispatch failure (exit 2/3) triggers loud-warned fallback to Claude PLN subagent; silent fallback forbidden",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-D.2/happy.sh && bash .harness/verifications/ac-D.2/edge.sh && bash .harness/verifications/ac-D.2/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-D.2/happy.sh",
+          ".harness/verifications/ac-D.2/edge.sh",
+          ".harness/verifications/ac-D.2/adversarial.sh",
+          "skills/execute/SKILL.md",
+          "skills/_shared/call-codex.sh"
+        ],
+        "description": "preflight exit 2 + timeout exit 3 + SKILL.md binds both to Claude PLN fallback with stderr warning"
+      },
+      "registeredAt": "INC-6a",
+      "lastVerifiedAt": "INC-6b",
+      "lastResult": "pass"
+    },
+    "AC-D.3": {
+      "requirement": "PLN output format constraint documented in Phase 1 prompt: markdown bullet-list increment-plan structure; parse-failure triggers Claude fallback",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-D.3/happy.sh && bash .harness/verifications/ac-D.3/edge.sh && bash .harness/verifications/ac-D.3/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-D.3/happy.sh",
+          ".harness/verifications/ac-D.3/edge.sh",
+          ".harness/verifications/ac-D.3/adversarial.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "Phase 1 documents format constraint + parse-failure \u2192 Claude fallback; no silent-acceptance language"
+      },
+      "registeredAt": "INC-6b",
+      "lastVerifiedAt": "INC-6b",
+      "lastResult": "pass"
+    },
+    "AC-D.4": {
+      "requirement": "Phase 2d AC verdict cross-check pinned to Claude in iter-4 (Codex branching scoped to Phase 1 only; widening to Phase 2d is iter-5 scope)",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-D.4/happy.sh && bash .harness/verifications/ac-D.4/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-D.4/happy.sh",
+          ".harness/verifications/ac-D.4/adversarial.sh",
+          "skills/execute/SKILL.md"
+        ],
+        "description": "Phase 2d explicitly declares Claude-only PLN dispatch; no codex / HARNESS_PLN_PROVIDER references in 2d"
+      },
+      "registeredAt": "INC-6b",
+      "lastVerifiedAt": "INC-6b",
+      "lastResult": "pass"
+    },
+    "AC-E.1": {
+      "requirement": "docs/multi-provider-dispatch.md exists with required sections: overview/usage/failure modes/debug tips/iter-5 roadmap; documents all 4 AC-B.2 failure scenarios",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-E.1/happy.sh && bash .harness/verifications/ac-E.1/edge.sh && bash .harness/verifications/ac-E.1/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-E.1/happy.sh",
+          ".harness/verifications/ac-E.1/edge.sh",
+          ".harness/verifications/ac-E.1/adversarial.sh",
+          "docs/multi-provider-dispatch.md"
+        ],
+        "description": "docs/multi-provider-dispatch.md contains required sections and documents all 4 preflight failure scenarios"
+      },
+      "registeredAt": "INC-7",
+      "lastVerifiedAt": "INC-8",
+      "lastResult": "pass"
+    },
+    "AC-E.2": {
+      "requirement": "codex-pln-probe.md generated with Claude baseline \u03c3, Codex single-value delta formula, defers conclusion to iter-5; results.jsonl has provider=codex rows; run.sh with HARNESS_PLN_PROVIDER=codex exits 0",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-E.2/happy.sh && bash .harness/verifications/ac-E.2/edge.sh && bash .harness/verifications/ac-E.2/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-E.2/happy.sh",
+          ".harness/verifications/ac-E.2/edge.sh",
+          ".harness/verifications/ac-E.2/adversarial.sh",
+          ".harness/experiments/baseline-variance/codex-pln-probe.md",
+          ".harness/experiments/baseline-variance/results.jsonl",
+          ".harness/experiments/baseline-variance/run.sh"
+        ],
+        "description": "codex-pln-probe.md populated with Claude \u03c3 + Codex mean + delta formula; explicit iter-5 deferral; no ship/kill verdict language"
+      },
+      "registeredAt": "INC-8",
+      "lastVerifiedAt": "INC-8",
       "lastResult": "pass"
     }
   }

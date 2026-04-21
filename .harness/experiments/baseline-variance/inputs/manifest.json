@@ -1,0 +1,28 @@
+{
+  "$schema": "harness-baseline-corpus-v1",
+  "description": "Archived debate fixtures for baseline variance measurement. Each entry pins a sha256 content hash to detect accidental mutation.",
+  "inputs": [
+    {
+      "id": "iter-1-structural",
+      "path": "iter-1-structural.md",
+      "sha256": "7521e55a17bc77eb3c68d2184cad71b94b0c1bbe975439ce972c246c0e42e825",
+      "topic_category": "structural",
+      "description": "Iteration 1 criteria: harness 구조 개선 closed-loop foundation — structural debate fixture."
+    },
+    {
+      "id": "iter-2-tech-debt",
+      "path": "iter-2-tech-debt.md",
+      "sha256": "6cd2403cb29cb4b4ea71d5b594582b806022ecdc8848c2c39da6215dae93fe21",
+      "topic_category": "tech-debt",
+      "description": "Iteration 2 criteria: batch-2/3 adversarial harness + VER helper improvements — methodological debate fixture."
+    },
+    {
+      "id": "iter-4-scoping",
+      "path": "iter-4-scoping.md",
+      "sha256": "7c49a3f2741da5ee45f9f35568bfc14560826ea2b95e71a9a8bbcc7fb65fa71d",
+      "topic_category": "scoping",
+      "description": "Iteration 4 criteria: multi-provider persona mapping scoping — scoping debate fixture."
+    }
+  ],
+  "hash_policy": "TBD hashes resolve to real sha256 values in INC-1b when the referenced fixtures are validated. Until then, this manifest declares the intent; adversarial verification (ac-A.2) runs will fail until INC-1b lands."
+}

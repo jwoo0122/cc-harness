@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Stub codex binary. Controlled by env flags set by the calling test.
+#   CODEX_STUB_MODE = ok | quota | auth | network | hang | garbage
+#   CODEX_STUB_STDIN_DUMP = path to which we dump received stdin (for injection/redaction tests)
+set -u
+if [[ -n "${CODEX_STUB_STDIN_DUMP:-}" ]]; then
+  cat >"$CODEX_STUB_STDIN_DUMP"
+else
+  cat >/dev/null
+fi
+mode="${CODEX_STUB_MODE:-ok}"
+case "$mode" in
+  ok)
+    printf '{"type":"message","role":"assistant","content":"INC-1 — seed file\\n- files: a.md\\n- enables: AC-1"}\n'
+    exit 0
+    ;;
+  quota)
+    echo "codex: 429 quota exceeded" >&2
+    exit 4
+    ;;
+  auth)
+    echo "codex: 401 unauthorized (API key missing/stale)" >&2
+    exit 5
+    ;;
+  network)
+    echo "codex: dial tcp: no route to host" >&2
+    exit 6
+    ;;
+  hang)
+    # Sleep longer than any reasonable test timeout; call-codex.sh must kill us.
+    sleep 120
+    ;;
+  garbage)
+    printf 'not-json not-bullets just a blob\n'
+    exit 0
+    ;;
+  *)
+    echo "codex-stub: unknown mode $mode" >&2
+    exit 99
+    ;;
+esac

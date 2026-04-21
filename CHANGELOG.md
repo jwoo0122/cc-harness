@@ -1,3 +1,10 @@
+# [0.4.0](https://github.com/jwoo0122/cc-harness/compare/v0.3.0...v0.4.0) (2026-04-21)
+
+
+### Features
+
+* Multi-provider PLN dispatch (baseline + PLN→Codex) ([#3](https://github.com/jwoo0122/cc-harness/issues/3)) ([92a6d3c](https://github.com/jwoo0122/cc-harness/commit/92a6d3cc741a379534a3bbf6c0fdc73c1223c684)), closes [#6](https://github.com/jwoo0122/cc-harness/issues/6)
+
 # [0.3.0](https://github.com/jwoo0122/cc-harness/compare/v0.2.0...v0.3.0) (2026-04-20)
 
 

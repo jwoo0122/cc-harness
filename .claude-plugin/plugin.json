@@ -1,7 +1,7 @@
 {
   "name": "cc-harness",
   "version": "0.3.0",
-  "description": "Two-mode cognitive harness for Claude Code: divergent /explore (3-persona debate with mandatory ask-back) and convergent /execute (3-role mutual verification with cumulative verification registry). Eliminates self-affirmation bias through structural role separation.",
+  "description": "Two Claude Code slash commands that enforce role separation, pre-arranged verification, and persistent iteration state. /explore runs a read-only debate; /execute gates tool access per role.",
   "author": {
     "name": "Jinwoo Jeong"
   },

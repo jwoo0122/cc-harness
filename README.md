@@ -1,180 +1,26 @@
 # cc-harness
 
-Two-mode cognitive harness for **Claude Code** — structured thinking protocols that eliminate self-affirmation bias.
+The harness splits one agent's work into read-only debate, planner, implementer, and verifier seats so that evidence, not self-confirmation, decides when a change is done.
 
-This is the Claude Code port of [`@jwoo0122/harness`](https://github.com/jwoo0122/harness) (the pi-agent package). Same protocols, re-implemented as Claude Code skills + subagents + hooks.
-
-## What this is
-
-| Mode | Skill | Personas / Roles | Purpose |
-|------|-------|------------------|---------|
-| **Diverge** | `/explore` | 🔴 OPT · 🟡 PRA · 🟢 SKP · 🔵 EMP | 4-persona debate to push boundaries and find options |
-| **Converge** | `/execute` | 📋 PLN · 🔨 IMP · ✅ VER | 3-role mutual verification to ship correct code |
-
-### Why role separation?
-
-Single-agent loops suffer from **self-affirmation bias** — the same context that writes code also evaluates whether the code is correct. The harness forces structured separation:
-
-- **Explore**: four emotional lenses run as **isolated subagents** (separate context windows, read-only tools). No unanimous Round-1 agreement allowed. Unsupported claims are struck.
-- **Execute**: three professional roles run as isolated subagents with **role-restricted tools**. The Implementer cannot mark its own ACs as passed — only the Verifier can. The Verifier cannot write code. The Planner cannot run tests.
-
-Enforcement is **structural**, not stylistic — `PreToolUse` hooks block the wrong role from using the wrong tool, including subagent calls. You can't accidentally bypass it by "just trying" — the hook will exit 2.
-
-## Layout
-
-```
-cc-harness/
-├── README.md
-├── .claude-plugin/
-│   ├── plugin.json               # plugin manifest (name, version, metadata)
-│   └── marketplace.json          # single-plugin marketplace catalog
-├── skills/
-│   ├── explore/
-│   │   ├── SKILL.md              # divergent debate orchestrator
-│   │   └── block-mutating.sh     # PreToolUse hook: blocks Edit/Write/NotebookEdit/Bash
-│   └── execute/
-│       ├── SKILL.md              # convergent execution orchestrator
-│       └── gate-mutating.sh      # PreToolUse hook: allows Edit/Write only when agent_type=imp
-└── agents/
-    ├── opt.md   # 🔴 Optimist (read-only)
-    ├── pra.md   # 🟡 Pragmatist (read-only)
-    ├── skp.md   # 🟢 Skeptic (read-only)
-    ├── emp.md   # 🔵 Empiricist (read-only)
-    ├── pln.md   # 📋 Planner (read-only)
-    ├── imp.md   # 🔨 Implementer (Read+Edit+Write+Glob+Grep+Bash)
-    └── ver.md   # ✅ Verifier (Read+Glob+Grep+Bash — no Edit)
-```
-
-Skills and agents are auto-discovered by the plugin loader from their convention directories — no explicit declaration in `plugin.json` needed.
-
-## Install
-
-### Recommended — install as a Claude Code plugin
-
-This repo is both the plugin and a self-hosted single-plugin marketplace. From inside Claude Code:
+cc-harness ships as a Claude Code plugin with two slash commands — `/explore` for divergent debate and `/execute` for convergent execution. Install it from inside Claude Code:
 
 ```
 /plugin marketplace add jwoo0122/cc-harness
 /plugin install cc-harness@cc-harness
 ```
 
-The first command registers the marketplace catalog (`.claude-plugin/marketplace.json`); the second installs the `cc-harness` plugin from it. Skills appear as `/cc-harness:explore` and `/cc-harness:execute`. Updates: re-run `/plugin install cc-harness@cc-harness` after the repo gets new tags.
+## Avoiding self-confirmation through role separation
 
-### Local development
+A single agent that writes code and then grades the same code tends toward self-confirmation: the context that produced the answer also rewards it. The harness removes that shortcut by dispatching each seat as an isolated subagent with its own tool budget. `/explore` runs four personas — OPT, PRA, SKP, EMP — in parallel read-only windows; no persona can mutate the repo, and unanimous round-one agreement is disallowed so dissent has to surface. `/execute` runs a three-role separation: PLN plans increments and acceptance criteria, IMP writes code, VER grades it. The Planner cannot run tests. The Implementer cannot declare an AC passed. The Verifier cannot edit source. Enforcement is structural. A `PreToolUse` hook at `skills/explore/block-mutating.sh` rejects Edit, Write, NotebookEdit, and Bash in explore mode, and `skills/execute/gate-mutating.sh` permits mutation only when the dispatched subagent reports `agent_type=imp`. Role separation is a property of the process, not a reminder in a prompt.
 
-To test changes against an unpublished checkout:
+## Interview until ambiguity is gone
 
-```bash
-git clone git@github.com:jwoo0122/cc-harness.git
-cd cc-harness
-claude --plugin-dir .
-```
+`/explore` opens with an orchestrator interview that fires `AskUserQuestion` on four triggers: a vague topic, contradictory project context, a persona-interpretation split after round one, and a user-resolvable synthesis tension before the final brief. The exchange runs tiki-taka until ambiguity is gone. Between subagent dispatches the interview is a chat pattern carried out inside the orchestrator turn, not a hook-enforced gate, so the user should refuse a premature dispatch in chat rather than rely on the plugin to block it.
 
-Then in Claude Code, `/reload-plugins` after edits. Validate the manifest with:
+## Pre-arranged verification before code
 
-```bash
-claude plugin validate .
-```
+`/execute` treats verification as a first-class authoring step. In Phase 1.5, VER writes the adversarial test corpus into `.harness/verifications/` before IMP touches production code, so the grader's rubric exists prior to the work being graded. PLN authors acceptance criteria first. VER then materializes each criterion as an executable check. Only after that does IMP begin the increment. Each registered check is recorded in `.harness/verification-registry.json` with its command, the acceptance criterion it targets, and the increment that introduced it. When IMP finishes an increment, VER runs the newly added checks, then re-runs the full registered set as a regression sweep, so a later increment cannot silently invalidate an earlier one. This is pre-arranged verification: the bar is fixed in the repository before the code exists, and every iteration re-measures against the accumulated bar rather than a rubric written after the fact.
 
-### Fallback — manual copy (no plugin system)
+## Spec that persists across sessions
 
-If you can't use the plugin system, copy the components directly. Note the hook scripts use `${CLAUDE_PLUGIN_ROOT}` which only resolves under the plugin loader — manual copy needs the path edited to absolute or `${CLAUDE_SKILL_DIR}`.
-
-```bash
-PROJECT=/path/to/your/project
-mkdir -p "$PROJECT/.claude/skills" "$PROJECT/.claude/agents"
-cp -R skills/explore  "$PROJECT/.claude/skills/"
-cp -R skills/execute  "$PROJECT/.claude/skills/"
-cp    agents/*.md     "$PROJECT/.claude/agents/"
-chmod +x "$PROJECT/.claude/skills/explore/block-mutating.sh" \
-         "$PROJECT/.claude/skills/execute/gate-mutating.sh"
-# After copying, edit the hook command paths in each SKILL.md from
-#   ${CLAUDE_PLUGIN_ROOT}/skills/<name>/...sh
-# to
-#   ${CLAUDE_SKILL_DIR}/...sh
-```
-
-### Verify install
-
-In Claude Code:
-
-```
-/cc-harness:explore "smoke test — say one sentence and stop"
-```
-
-You should see Claude entering explore mode, dispatching subagents. Try `/cc-harness:execute` similarly.
-
-To confirm the gate works, ask in `/cc-harness:explore` mode: "edit `/tmp/x.txt`". You should see the `BLOCKED:` message from the hook.
-
-## How the pieces fit
-
-```
-                        ┌────────────────────────────┐
-                        │  /explore   (skill)        │
-                        │  - divergent procedure     │
-                        │  - hooks: block Edit/Write │
-                        └─────────────┬──────────────┘
-                                      │ Agent(subagent_type=…) ×3 in parallel
-                ┌─────────────────────┼─────────────────────┐
-                ▼                     ▼                     ▼
-          ┌───────────┐         ┌───────────┐         ┌───────────┐
-          │   opt     │         │   pra     │         │   skp     │
-          │ read-only │         │ read-only │         │ read-only │
-          └───────────┘         └───────────┘         └───────────┘
-
-                        ┌────────────────────────────┐
-                        │  /execute   (skill)        │
-                        │  - convergent procedure    │
-                        │  - hooks: gate by role     │
-                        └─────────────┬──────────────┘
-                                      │ Agent(subagent_type=…)
-                ┌─────────────────────┼─────────────────────┐
-                ▼                     ▼                     ▼
-          ┌───────────┐         ┌──────────────┐      ┌───────────┐
-          │   pln     │         │     imp      │      │   ver     │
-          │ read-only │         │ Read+Edit+   │      │ Read+Bash │
-          │           │         │ Write+Bash   │      │ (no Edit) │
-          └───────────┘         └──────────────┘      └───────────┘
-```
-
-The skills are pure orchestrators — they decide what to dispatch, when, and they collect outputs. The subagents do the actual cognition in isolated contexts. The hooks enforce who-can-touch-what at the tool layer, so role discipline is structural, not vibes.
-
-## Iteration artifacts
-
-Each `/explore` → `/execute` loop targets a dedicated iteration directory `.iteration-<N>/` (where `<N>` is `1, 2, 3…`, per regex `^\.iteration-[1-9][0-9]*$`). The layout holds three files: `brief.md` (strategic brief from `/explore` — bet, appetite, boundaries, risk-flagged rabbit-holes), `verify-report.md` (AC verification results from `/execute` Phase 3), and `decision-log.md` (freetext rationale captured at the user-gate checkpoint when re-entering the loop). See `docs/iteration-layout.md` for the full spec, opt-in tracking procedure, and pre-commit secret-scan guidance. By default `.iteration-*/` is gitignored.
-
-At the end of each `/execute` run, a **user-gated checkpoint** (Phase 3c) asks whether to enter the next iteration via `/explore`, fix-forward in the current iteration, or accept-and-exit. Picking "next iteration" requires a one-sentence freetext rationale that is carried forward into `.iteration-<N+1>/decision-log.md` so the next `/explore` session inherits the reason. Set `HARNESS_DISABLE_CHECKPOINT=1` to skip the prompt in CI/automation. A parallel `HARNESS_DISABLE_BRIEF=1` escape hatch lets `/execute` run without reading the brief, for legacy criteria-only flows.
-
-## What got dropped from the pi version (and why)
-
-The pi extension layer adds five enforcement powers; in Claude Code these map differently:
-
-| pi feature | Claude Code equivalent |
-|------------|------------------------|
-| Tool gating per mode | Skill-frontmatter `hooks:` (this package) |
-| Real isolated subagents | `.claude/agents/*.md` + `Agent` tool (this package) |
-| `harness_verify_register` tool | Direct `Read`+`Write` of `.harness/verification-registry.json` (IMP subagent only) |
-| `harness_verify_list` tool | `Read` of the same JSON file (VER subagent) |
-| `harness_commit` tool | `Bash` git commands (IMP subagent only) |
-| TUI mode indicator | Not ported — Claude Code surfaces active skill in transcript |
-| Cross-session AC state | **Not ported.** Each session re-derives state from `.harness/verification-registry.json` and the criteria file. |
-
-If you need cross-session state persistence, the registry file already gives you the durable part — what's missing is per-increment progress within a session, which is fine to recompute.
-
-## Releases
-
-Versioning is automated via [semantic-release](https://semantic-release.gitbook.io/) on every push to `main`. Version is computed from [Conventional Commits](https://www.conventionalcommits.org/) since the last tag, then propagated to `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`.
-
-| Commit prefix | Effect |
-|---------------|--------|
-| `feat: …` | minor bump (0.x.0) |
-| `fix: …` | patch bump (0.0.x) |
-| `feat!: …` or footer `BREAKING CHANGE: …` | major bump (x.0.0) |
-| `chore: …`, `docs: …`, `refactor: …`, `test: …`, `ci: …` | no release |
-| any commit with `[skip ci]` | workflow skipped |
-
-The release workflow itself bumps version and creates the tag in a `chore(release): X.Y.Z [skip ci]` commit, which does not retrigger the workflow.
-
-## License
-
-MIT — same as the upstream pi harness.
+State carries across sessions through two durable artifacts. `.harness/verification-registry.json` keeps the registered check set, and each loop writes `.iteration-<N>/brief.md`, `verify-report.md`, and `decision-log.md` capturing intent, results, and the rationale for entering the next iteration. A new session can replay the last iteration triple and re-run the registry to recover ground truth. The gap: per-acceptance-criterion progress inside an in-flight iteration is not persisted, so resuming mid-iteration means rereading the triple and asking the user which acceptance criteria already passed.

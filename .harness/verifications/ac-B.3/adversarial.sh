@@ -23,7 +23,7 @@ portable_timeout() {
   fi
 }
 
-SCRIPT="$(repo_root)/.harness/scripts/call-codex.sh"
+SCRIPT="$(repo_root)/skills/_shared/call-codex.sh"
 grep -qE '\b60\b' "$SCRIPT" || fail "default 60s timeout literal missing from call-codex.sh"
 scratch=$(mk_scratch ac-B.3-adv)
 trap "cleanup_scratch $scratch" EXIT

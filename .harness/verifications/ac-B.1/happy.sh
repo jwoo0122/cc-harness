@@ -3,7 +3,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 source "$HERE/../_shared/lib.sh"
 ROOT="$(repo_root)"
-SCRIPT="$ROOT/.harness/scripts/call-codex.sh"
+SCRIPT="$ROOT/skills/_shared/call-codex.sh"
 [[ -x "$SCRIPT" ]] || fail "call-codex.sh missing or not executable"
 # argv sniffing stub: records argv+stdin, returns fixed JSONL
 scratch=$(mk_scratch ac-B.1)

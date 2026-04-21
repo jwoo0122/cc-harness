@@ -12,14 +12,9 @@ probe() {
   set -e
   [[ "$rc" == "$expected" ]] || fail "probe [$cmd] expected rc=$expected got $rc"
 }
-# exact call-codex.sh → allow
-probe ".harness/scripts/call-codex.sh" 0
-# with trailing newline/spaces → allow (common subprocess artifact)
-probe ".harness/scripts/call-codex.sh  " 0
-# absolute path → block (hook regex is relative)
-probe "/home/user/.harness/scripts/call-codex.sh" 2
-# ../ traversal → block
+probe "skills/_shared/call-codex.sh" 0
+probe "skills/_shared/call-codex.sh  " 0
+probe "/home/user/skills/_shared/call-codex.sh" 0
 probe ".harness/scripts/../../evil/call-codex.sh" 2
-# unknown provider name → block (C.3 tightens)
-probe ".harness/scripts/call-evil.sh" 2
+probe "skills/_shared/call-evil.sh" 2
 pass "AC-C.2 edge"

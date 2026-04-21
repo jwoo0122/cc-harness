@@ -177,9 +177,9 @@ If PLN says baseline is broken → dispatch IMP to fix the named issues, loop ba
 
 #### PLN dispatch provider (optional Codex branch)
 
-By default PLN is dispatched as the Claude `pln` subagent (`Agent(subagent_type: "pln", ...)`). For multi-provider experimentation (see `docs/multi-provider-dispatch.md`), set env `HARNESS_PLN_PROVIDER=codex` before entering `/execute` to route the Phase 1 PLN planning call through `.harness/scripts/call-codex.sh` (OpenAI Codex CLI wrapper with preflight + loud-fail).
+By default PLN is dispatched as the Claude `pln` subagent (`Agent(subagent_type: "pln", ...)`). For multi-provider experimentation (see `docs/multi-provider-dispatch.md`), set env `HARNESS_PLN_PROVIDER=codex` before entering `/execute` to route the Phase 1 PLN planning call through `skills/_shared/call-codex.sh` (OpenAI Codex CLI wrapper with preflight + loud-fail).
 
-- **`HARNESS_PLN_PROVIDER=codex`**: the orchestrator pipes PLN's full prompt into `bash .harness/scripts/call-codex.sh` instead of `Agent(subagent_type: "pln", ...)`. The script must be on disk and executable; Codex CLI must be installed with a valid `OPENAI_API_KEY`.
+- **`HARNESS_PLN_PROVIDER=codex`**: the orchestrator pipes PLN's full prompt into `bash ${CLAUDE_PLUGIN_ROOT}/skills/_shared/call-codex.sh` instead of `Agent(subagent_type: "pln", ...)`. The script must be on disk and executable; Codex CLI must be installed with a valid `OPENAI_API_KEY`.
 - **`HARNESS_PLN_PROVIDER` unset or `=claude`**: traditional Claude PLN subagent (unchanged behavior).
 - The branch applies **only to Phase 1 planning dispatches**. Phase 2d AC verdict cross-check remains Claude-only this iteration (see Phase 2d note below).
 

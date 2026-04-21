@@ -3,7 +3,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 source "$HERE/../_shared/lib.sh"
 ROOT="$(repo_root)"
-SCRIPT="$ROOT/.harness/scripts/call-codex.sh"
+SCRIPT="$ROOT/skills/_shared/call-codex.sh"
 STUB="$ROOT/.harness/verifications/_shared/codex-stub"
 scratch=$(mk_scratch ac-B.2-adv)
 trap "cleanup_scratch $scratch" EXIT

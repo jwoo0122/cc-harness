@@ -607,7 +607,7 @@
           ".harness/verifications/ac-B.1/happy.sh",
           ".harness/verifications/ac-B.1/edge.sh",
           ".harness/verifications/ac-B.1/adversarial.sh",
-          ".harness/scripts/call-codex.sh"
+          "skills/_shared/call-codex.sh"
         ],
         "description": "call-codex.sh wrapper exists at canonical path, executable, shebang present, dispatches to codex binary with required env passthrough"
       },
@@ -625,7 +625,7 @@
           ".harness/verifications/ac-B.2/happy.sh",
           ".harness/verifications/ac-B.2/edge.sh",
           ".harness/verifications/ac-B.2/adversarial.sh",
-          ".harness/scripts/call-codex.sh"
+          "skills/_shared/call-codex.sh"
         ],
         "description": "preflight rc==2 strict for missing-binary/stale-token/absent-token; runtime failures distinct; anchored stderr warning prefix"
       },
@@ -643,7 +643,7 @@
           ".harness/verifications/ac-B.3/happy.sh",
           ".harness/verifications/ac-B.3/edge.sh",
           ".harness/verifications/ac-B.3/adversarial.sh",
-          ".harness/scripts/call-codex.sh"
+          "skills/_shared/call-codex.sh"
         ],
         "description": "default 60s in source; env override honored; rc==3 on timeout with elapsed<10s; invalid values (0, negative) rejected"
       },
@@ -662,7 +662,7 @@
           ".harness/verifications/ac-B.4/edge.sh",
           ".harness/verifications/ac-B.4/adversarial.sh",
           ".harness/verifications/ac-B.4/property.sh",
-          ".harness/scripts/call-codex.sh"
+          "skills/_shared/call-codex.sh"
         ],
         "description": "stdin-only handling via property fuzz (30 random blobs byte-identical forwarded); metachar prompts don't create extra scratch files beyond whitelisted sinks"
       },
@@ -681,7 +681,7 @@
           ".harness/verifications/ac-C.1-hook/edge.sh",
           ".harness/verifications/ac-C.1-hook/adversarial.sh",
           ".harness/verifications/ac-C.1-hook/README.md",
-          ".harness/scripts/call-codex.sh",
+          "skills/_shared/call-codex.sh",
           "skills/_shared/_provider-allowlist.sh",
           "skills/execute/gate-mutating.sh"
         ],
@@ -759,7 +759,7 @@
           ".harness/verifications/ac-D.2/edge.sh",
           ".harness/verifications/ac-D.2/adversarial.sh",
           "skills/execute/SKILL.md",
-          ".harness/scripts/call-codex.sh"
+          "skills/_shared/call-codex.sh"
         ],
         "description": "preflight exit 2 + timeout exit 3 + SKILL.md binds both to Claude PLN fallback with stderr warning"
       },

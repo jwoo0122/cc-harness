@@ -23,7 +23,7 @@ portable_timeout() {
   fi
 }
 
-SCRIPT="$(repo_root)/.harness/scripts/call-codex.sh"
+SCRIPT="$(repo_root)/skills/_shared/call-codex.sh"
 scratch=$(mk_scratch ac-B.3-edge)
 trap "cleanup_scratch $scratch" EXIT
 cp "$HERE/../_shared/codex-stub/codex" "$scratch/codex"

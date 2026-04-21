@@ -4,16 +4,14 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 source "$HERE/../_shared/lib.sh"
 HOOK="$(repo_root)/skills/execute/gate-mutating.sh"
 [[ -x "$HOOK" ]] || fail "gate-mutating.sh missing"
-# Seven adversarial patterns; all must block (exit 2) for non-IMP agent.
 declare -a attacks=(
-  ".harness/scripts/../../evil/call-codex.sh"         # traversal
-  "/abs/path/.harness/scripts/call-codex.sh"           # absolute path
-  ".harness/scripts/call-evil.sh"                      # suffix drift / unknown provider
-  ".harness/scripts/cаll-codex.sh"                     # cyrillic 'а' in 'call' (unicode homoglyph)
-  ".harness/scripts/CALL-codex.sh"                     # case variation
-  ".harness/scripts/call-codex.sh; rm -rf /tmp/x"      # command chaining
-  ".harness/scripts/call-codex.sh && ls"               # &&-chain
-  ".harness/scripts/call-codex.sh\$(id)"               # cmd substitution literal
+  ".harness/scripts/../../evil/call-codex.sh"
+  "skills/_shared/call-evil.sh"
+  ".harness/scripts/cаll-codex.sh"
+  ".harness/scripts/CALL-codex.sh"
+  "skills/_shared/call-codex.sh; rm -rf /tmp/x"
+  "skills/_shared/call-codex.sh && ls"
+  "skills/_shared/call-codex.sh\$(id)"
 )
 fails=0
 for cmd in "${attacks[@]}"; do

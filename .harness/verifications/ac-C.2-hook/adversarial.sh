@@ -8,7 +8,7 @@ SHARED="$ROOT/skills/_shared/_provider-allowlist.sh"
 [[ -f "$SHARED" ]] || fail "shared provider allowlist missing"
 grep -qE '_provider-allowlist\.sh|source[[:space:]]+.*_provider-allowlist' "$HOOK" \
   || fail "block-mutating.sh does not source the shared allowlist"
-in='{"tool_name":"Bash","agent_type":"pln","tool_input":{"command":".harness/scripts/call-codex.sh"}}'
+in='{"tool_name":"Bash","agent_type":"pln","tool_input":{"command":"skills/_shared/call-codex.sh"}}'
 set +e; printf '%s' "$in" | "$HOOK" >/dev/null 2>/dev/null; rc=$?; set -e
 (( rc == 0 )) || fail "baseline: call-codex.sh should be allowed"
 scratch=$(mk_scratch ac-C.2-adv)

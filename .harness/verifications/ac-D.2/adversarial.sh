@@ -24,7 +24,7 @@ portable_timeout() {
 }
 
 ROOT="$(repo_root)"
-SCRIPT="$ROOT/.harness/scripts/call-codex.sh"
+SCRIPT="$ROOT/skills/_shared/call-codex.sh"
 [[ -x "$SCRIPT" ]] || fail "call-codex.sh missing"
 scratch=$(mk_scratch ac-D.2-adv)
 trap "cleanup_scratch $scratch" EXIT

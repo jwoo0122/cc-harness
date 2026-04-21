@@ -15,8 +15,8 @@ source "$SHARED" || fail "sourcing $SHARED failed"
 declare -F harness_is_provider_call >/dev/null \
   || fail "harness_is_provider_call function is not defined after sourcing shared allow-list"
 
-harness_is_provider_call ".harness/scripts/call-codex.sh" \
-  || fail "harness_is_provider_call rejected a well-formed .harness/scripts/call-codex.sh invocation"
+harness_is_provider_call "skills/_shared/call-codex.sh" \
+  || fail "harness_is_provider_call rejected a well-formed skills/_shared/call-codex.sh invocation"
 
 if harness_is_provider_call "ls -la"; then
   fail "harness_is_provider_call accepted 'ls -la' — allow-list not enforcing strict regex"

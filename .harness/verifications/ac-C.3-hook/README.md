@@ -1,6 +1,6 @@
 # AC-C.3 — strict provider regex
 
-Proves: whitelist is anchored exact-match `^\.harness/scripts/call-[a-z]+\.sh$`
+Proves: whitelist is anchored exact-match `^\skills/_shared/call-[a-z]+\.sh$`
 and blocks ≥7 bypass attempts (traversal, absolute path, suffix drift,
 unicode homoglyph, case variation, command chaining, cmd-substitution).
 Providers in shared allowlist correspond to real scripts.

@@ -15,7 +15,7 @@ done < <(grep -oE '\b(codex|gemini|[a-z]{3,20})\b' "$SHARED" \
 missing=()
 for p in "${providers[@]}"; do
   if [[ "$p" =~ ^(sh|source|agent|tool|input|command|name|type)$ ]]; then continue; fi
-  if [[ "$p" == "codex" && ! -x "$ROOT/.harness/scripts/call-codex.sh" ]]; then
+  if [[ "$p" == "codex" && ! -x "$ROOT/skills/_shared/call-codex.sh" ]]; then
     missing+=("codex")
   fi
 done

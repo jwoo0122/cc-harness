@@ -5,11 +5,11 @@ source "$HERE/../_shared/lib.sh"
 HOOK="$(repo_root)/skills/execute/gate-mutating.sh"
 [[ -x "$HOOK" ]] || fail "gate-mutating.sh missing or not executable"
 # Case 1: pln calling call-codex.sh → allowed (exit 0)
-in1='{"tool_name":"Bash","agent_type":"pln","tool_input":{"command":".harness/scripts/call-codex.sh"}}'
+in1='{"tool_name":"Bash","agent_type":"pln","tool_input":{"command":"skills/_shared/call-codex.sh"}}'
 printf '%s' "$in1" | "$HOOK" && rc1=0 || rc1=$?
 (( rc1 == 0 )) || fail "PLN Bash call-codex.sh blocked (rc=$rc1)"
 # Case 2: ver calling call-gemini.sh → allowed
-in2='{"tool_name":"Bash","agent_type":"ver","tool_input":{"command":".harness/scripts/call-gemini.sh"}}'
+in2='{"tool_name":"Bash","agent_type":"ver","tool_input":{"command":"skills/_shared/call-gemini.sh"}}'
 printf '%s' "$in2" | "$HOOK" && rc2=0 || rc2=$?
 (( rc2 == 0 )) || fail "VER Bash call-gemini.sh blocked (rc=$rc2)"
 # Case 3: imp Edit → still allowed (existing policy)

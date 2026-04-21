@@ -20,7 +20,7 @@ cp "$SHARED" "$scratch/backup"
   echo '# test injection — AC-C.1 adversarial'
   echo 'HARNESS_PROVIDERS="${HARNESS_PROVIDERS:-} unicorn"'
 } >>"$SHARED"
-in='{"tool_name":"Bash","agent_type":"pln","tool_input":{"command":".harness/scripts/call-unicorn.sh"}}'
+in='{"tool_name":"Bash","agent_type":"pln","tool_input":{"command":"skills/_shared/call-unicorn.sh"}}'
 set +e
 printf '%s' "$in" | "$HOOK" >/dev/null 2>/dev/null
 rc=$?

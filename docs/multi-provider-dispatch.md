@@ -26,7 +26,7 @@ export HARNESS_PLN_PROVIDER=codex
 export HARNESS_CODEX_TIMEOUT=90
 ```
 
-Then invoke `/execute <criteria-file>` normally. The orchestrator will route Phase 1 PLN dispatch through `.harness/scripts/call-codex.sh` instead of the Claude pln subagent.
+Then invoke `/execute <criteria-file>` normally. The orchestrator will route Phase 1 PLN dispatch through `skills/_shared/call-codex.sh` instead of the Claude pln subagent.
 
 ### Disabling (default)
 
@@ -65,7 +65,7 @@ If Codex's output doesn't parse as a well-formed increment plan (missing INC ent
 
 ## Debug tips
 
-- **Test the wrapper directly**: `printf 'hello' | HARNESS_CODEX_TIMEOUT=10 bash .harness/scripts/call-codex.sh`
+- **Test the wrapper directly**: `printf 'hello' | HARNESS_CODEX_TIMEOUT=10 bash skills/_shared/call-codex.sh`
 - **Check the shared allowlist regex**: `source skills/_shared/_provider-allowlist.sh && echo "$HARNESS_PROVIDER_WHITELIST_REGEX"`. Commands not matching are blocked at hook layer.
 - **Verify fallback triggers**: unset `OPENAI_API_KEY` and re-run — you should see the stderr warning AND Claude PLN proceeding normally.
 - **Inspect verification registry**: `jq '.entries | keys[] | select(startswith("AC-D"))' .harness/verification-registry.json` lists the 4 registered D-ACs proving the wiring.

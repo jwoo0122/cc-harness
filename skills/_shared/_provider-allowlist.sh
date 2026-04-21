@@ -21,8 +21,10 @@
 #     Safe chars in tokens: [A-Za-z0-9._/=-]. Shell metachars (&, |, ;, $,
 #     backtick, >, <, parentheses, newlines, quotes) REJECTED.
 #   - Trailing whitespace after the script path with no further tokens is OK.
-#   - Suffix drift (call-evil.sh), path traversal (../), absolute paths all
-#     rejected by the anchored regex structure.
+#   - Suffix drift (call-evil.sh), path traversal (../) rejected by the
+#     anchored regex structure. Absolute paths ending in
+#     skills/_shared/call-<provider>.sh ARE accepted (needed for
+#     ${CLAUDE_PLUGIN_ROOT}/skills/_shared/... invocations).
 
 # Baseline — can be commented out to fully disable (combined with empty HARNESS_PROVIDERS).
 _harness_provider_baseline() {
@@ -60,10 +62,13 @@ _harness_rebuild_regex() {
     return 0
   fi
   # Pattern:
-  #   ^ \.harness/scripts/call-<plist>\.sh
+  #   ^ <optional leading path>skills/_shared/call-<plist>\.sh
   #   then optional: whitespace, with optional run of safe tokens separated by whitespace
+  # The optional leading path lets absolute invocations through
+  # (e.g. ${CLAUDE_PLUGIN_ROOT}/skills/_shared/call-codex.sh), while still
+  # requiring the canonical skills/_shared/call-<provider>.sh tail.
   # Explicit regex (ERE via bash [[ =~ ]]):
-  HARNESS_PROVIDER_WHITELIST_REGEX='^\.harness/scripts/call-('"$plist"')\.sh[[:space:]]*([A-Za-z0-9._/=-]+[[:space:]]*)*$'
+  HARNESS_PROVIDER_WHITELIST_REGEX='^(.*/)?skills/_shared/call-('"$plist"')\.sh[[:space:]]*([A-Za-z0-9._/=-]+[[:space:]]*)*$'
 }
 
 _harness_rebuild_regex

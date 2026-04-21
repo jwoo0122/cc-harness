@@ -6,7 +6,7 @@ HOOK="$(repo_root)/skills/explore/block-mutating.sh"
 [[ -x "$HOOK" ]] || fail "block-mutating.sh missing or not executable"
 # Whitelisted call → allowed
 set +e
-printf '%s' '{"tool_name":"Bash","agent_type":"skp","tool_input":{"command":".harness/scripts/call-codex.sh"}}' \
+printf '%s' '{"tool_name":"Bash","agent_type":"skp","tool_input":{"command":"skills/_shared/call-codex.sh"}}' \
   | "$HOOK" >/dev/null 2>/dev/null
 rc=$?
 set -e

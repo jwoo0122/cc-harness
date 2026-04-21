@@ -2,7 +2,7 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 source "$HERE/../_shared/lib.sh"
-SCRIPT="$(repo_root)/.harness/scripts/call-codex.sh"
+SCRIPT="$(repo_root)/skills/_shared/call-codex.sh"
 [[ -x "$SCRIPT" ]] || fail "call-codex.sh missing"
 scratch=$(mk_scratch ac-B.1-edge)
 trap "cleanup_scratch $scratch" EXIT

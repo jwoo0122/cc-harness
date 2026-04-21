@@ -561,6 +561,41 @@
       "registeredAt": "INC-1",
       "lastVerifiedAt": "INC-1",
       "lastResult": "pass"
+    },
+    "AC-A.3": {
+      "requirement": "Measurement script (run.sh) generates per-input/iteration rows in results.jsonl with schema_version, stance_agreement_rate, round3_survival_rate, ts, provider, mode; supports HARNESS_BASELINE_MODE=mock|real switch",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-A.3/happy.sh && bash .harness/verifications/ac-A.3/edge.sh && bash .harness/verifications/ac-A.3/adversarial.sh && bash .harness/verifications/ac-A.3/property.sh",
+        "files": [
+          ".harness/verifications/ac-A.3/happy.sh",
+          ".harness/verifications/ac-A.3/edge.sh",
+          ".harness/verifications/ac-A.3/adversarial.sh",
+          ".harness/verifications/ac-A.3/property.sh"
+        ],
+        "description": "run.sh appends schema-valid JSONL with [0,1]-invariant rate metrics; append-only across invocations; dry-run safe on adversarial corpus"
+      },
+      "registeredAt": "INC-2",
+      "lastVerifiedAt": "INC-2",
+      "lastResult": "pass"
+    },
+    "AC-A.4": {
+      "requirement": "summary.md auto-regenerated from results.jsonl with mean, σ, 95% CI, sample count; includes rabbit-hole #6 caveat text about correlated provider failure detection scope",
+      "source": ".iteration-4-criteria.md",
+      "verification": {
+        "strategy": "automated-test",
+        "command": "bash .harness/verifications/ac-A.4/happy.sh && bash .harness/verifications/ac-A.4/edge.sh && bash .harness/verifications/ac-A.4/adversarial.sh",
+        "files": [
+          ".harness/verifications/ac-A.4/happy.sh",
+          ".harness/verifications/ac-A.4/edge.sh",
+          ".harness/verifications/ac-A.4/adversarial.sh"
+        ],
+        "description": "summary.md derived deterministically from results.jsonl with mean/σ/95%CI/N for stance_agreement and round3_survival metrics; includes echo-chamber caveat"
+      },
+      "registeredAt": "INC-2",
+      "lastVerifiedAt": "INC-2",
+      "lastResult": "pass"
     }
   }
 }

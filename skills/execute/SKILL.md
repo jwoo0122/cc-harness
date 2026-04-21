@@ -399,7 +399,7 @@ Iron rules:
 - Commit messages always start with the increment ID.
 - Push only on explicit user instruction.
 
-## Phase 3 — Completion Report
+## Phase 3
 
 **PLN writes the report; VER audits; orchestrator runs the user-gated iteration checkpoint before exiting.**
 

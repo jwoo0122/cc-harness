@@ -7,7 +7,7 @@
     {
       "name": "cc-harness",
       "source": "./",
-      "description": "Two-command harness for Claude Code: role separation (PLN/IMP/VER) with verification chosen to fit each goal. /explore debates read-only; /execute builds under a mutation gate.",
+      "description": "Two-command harness for Claude Code: role separation (PLN/IMP/VER) with verification chosen to fit each goal, plus cross-model adversarial pressure — the Skeptic (/explore) and Verifier (/execute) seats run on the Codex peer model. /explore debates read-only; /execute builds under a mutation gate with a Codex-driven adversarial review at plan lock.",
       "version": "0.4.0",
       "homepage": "https://github.com/jwoo0122/cc-harness",
       "repository": "https://github.com/jwoo0122/cc-harness",

@@ -9,7 +9,11 @@ Two Claude Code slash commands that split one agent's work into separate seats s
 
 ## Role separation beats self-confirmation
 
-A single agent that writes code and then grades it rewards self-confirmation — the context that produced the answer also approves it. The harness breaks that loop by dispatching each seat as an isolated subagent with its own tool budget. `/explore` runs four read-only personas in parallel; a `PreToolUse` hook blocks `Edit`, `Write`, `NotebookEdit`, and `Bash` so no persona can mutate the repo. `/execute` runs three roles — Planner, Implementer, Verifier — and a hook permits mutation only when the dispatched subagent reports `agent_type=imp`. Separation is structural, not a reminder in a prompt.
+A single agent that writes code and then grades it rewards self-confirmation — the context that produced the answer also approves it. The harness breaks that loop by dispatching each seat as an isolated subagent with its own tool budget. `/explore` runs four read-only personas in parallel; a `PreToolUse` hook blocks `Edit`, `Write`, `NotebookEdit`, and (for Claude seats) `Bash` so no persona can mutate the repo. `/execute` runs three roles — Planner, Implementer, Verifier — and a hook permits mutation only when the dispatched subagent reports `agent_type=imp`. Separation is structural, not a reminder in a prompt.
+
+## Cross-model adversarial pressure
+
+Role separation on one model is still one model grading itself. The harness crosses models for the seats whose job is to find fault: the **Skeptic** in `/explore`, the **Verifier** across every phase of `/execute`, and a dedicated **adversarial review** round that gates entry to Phase 2. Those seats run on the Codex peer model (`codex:codex-rescue` subagent); Planner, Implementer, Optimist, Pragmatist, and Empiricist stay on Claude. When Codex is unreachable, the skills fall back to Claude seats and annotate the run as mono-model — so users can see which runs ran in the weaker state. Details: `docs/codex-peer-integration.md`.
 
 ## Verification has to fit the purpose
 
@@ -17,7 +21,7 @@ A pre-authored adversarial gauntlet run against every change is theatrical — i
 
 ## What's in the box
 
-- `/explore` — 4-persona divergent debate (Optimist / Pragmatist / Skeptic / Empiricist). Read-only. Produces a synthesis the user reviews before any code is written.
-- `/execute` — convergent planner/implementer/verifier loop. Only the Implementer can mutate files; the Verifier decides whether a goal is met, against a check chosen to fit the goal.
+- `/explore` — 4-persona divergent debate (Optimist / Pragmatist / Skeptic / Empiricist). Read-only. The Skeptic seat runs on the Codex peer model so adversarial pressure is cross-model, not Claude-on-Claude. Produces a synthesis the user reviews before any code is written.
+- `/execute` — convergent planner/implementer/verifier loop. Only the Implementer can mutate files; the Verifier runs on the Codex peer model and has sole authority to declare a goal met. An adversarial review round at the end of Phase 1 catches plan holes before implementation starts.
 
-Optional: set `HARNESS_PLN_PROVIDER=codex` to route the Planner through OpenAI's Codex CLI instead of Claude — see `docs/multi-provider-dispatch.md`.
+Prerequisite for cross-model operation: the `codex:codex-rescue` peer subagent must be available (run `/codex:setup` if in doubt). Skills still run without it, falling back to Claude seats with a visible annotation.

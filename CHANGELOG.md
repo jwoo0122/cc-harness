@@ -1,3 +1,10 @@
+# [0.5.0](https://github.com/jwoo0122/cc-harness/compare/v0.4.0...v0.5.0) (2026-04-22)
+
+
+### Features
+
+* cross-model seats with Codex peer subagent dispatch ([#5](https://github.com/jwoo0122/cc-harness/issues/5)) ([f53ee22](https://github.com/jwoo0122/cc-harness/commit/f53ee22a020d15c37bbefd6ddb9e541ce80f8ebc))
+
 # 0.5.0 (pending)
 
 ### Features

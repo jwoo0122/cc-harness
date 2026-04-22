@@ -1,6 +1,6 @@
 {
   "name": "cc-harness",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Two Claude Code slash commands that enforce role separation — and cross-model pressure — between planning, implementation, and purpose-fit verification. /explore runs a read-only 4-persona debate with the Skeptic seat on the Codex peer model; /execute gates tool access so only the Implementer can mutate, with the Verifier and a dedicated adversarial review round running on Codex.",
   "author": {
     "name": "Jinwoo Jeong"

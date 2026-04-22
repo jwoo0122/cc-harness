@@ -1,3 +1,16 @@
+# 0.5.0 (pending)
+
+### Features
+
+* Cross-model role separation. SKP (/explore) and VER (/execute) now run on the Codex peer model via `codex:codex-rescue` peer-subagent dispatch, not Claude. Plus a dedicated Codex adversarial-review round at the end of `/execute` Phase 1. Planner / Implementer / Optimist / Pragmatist / Empiricist stay on Claude. Rationale and mapping: `docs/codex-peer-integration.md`.
+* Fallback contract. When Codex is unreachable, `/explore` falls back to `skp-fallback` and `/execute` to `ver-fallback`, both annotating the run as mono-model. The adversarial review round does NOT fall back to Claude — it annotates and proceeds, because the round exists specifically to avoid Claude self-grading.
+
+### Breaking changes
+
+* `HARNESS_PLN_PROVIDER=codex` env flag removed. The iter-4 subprocess wrapper (`skills/_shared/call-codex.sh`) and the provider allow-list (`skills/_shared/_provider-allowlist.sh`) are gone, replaced by peer-subagent dispatch. Users who set the env var should unset it and rely on the default cross-model seats.
+* `agents/skp.md` → `agents/skp-fallback.md`; `agents/ver.md` → `agents/ver-fallback.md`. They remain invocable but are no longer the default SKP / VER seats.
+* `docs/multi-provider-dispatch.md` replaced by `docs/codex-peer-integration.md`.
+
 # [0.4.0](https://github.com/jwoo0122/cc-harness/compare/v0.3.0...v0.4.0) (2026-04-21)
 
 
